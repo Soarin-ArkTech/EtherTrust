@@ -16,7 +16,7 @@ import (
 	"go.minekube.com/gate/pkg/edition/java/proxy"
 )
 
-// Register command across proxy
+// Register command across proxyf
 func (p *EtherProx) grabBalance() {
 	// Create the /ethereum exchange command
 	p.Command().Register(brigodier.Literal("ether-bal").
