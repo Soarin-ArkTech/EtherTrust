@@ -2,6 +2,7 @@ package coinbase
 
 import (
 	"fmt"
+	"strconv"
 
 	apiclient "github.com/Soarin-ArkTech/ethereal-dreams/api"
 )
@@ -28,12 +29,12 @@ func CallEthereum() error {
 
 func (Coinbase) CoinbaseToFloat32() float32 {
 	// Convert string into foat64
-	// eth, err := strconv.ParseFloat(*Ethereum.Amount, 32)
-	// if err != nil {
-	// 	fmt.Println("Failed to convert Ethereum output from string to float!")
-	// }
+	eth, err := strconv.ParseFloat(*Ethereum.Amount, 32)
+	if err != nil {
+		fmt.Println("Failed to convert Ethereum output from string to float!")
+	}
 
-	return float32(*Ethereum.Amount)
+	return float32(eth)
 }
 
 var Ethereum Coinbase
@@ -43,7 +44,7 @@ type Coinbase struct {
 }
 
 type Crypto struct {
-	BaseToken     string   `json:"base"`
-	ComparedToken string   `json:"currency"`
-	Amount        *float32 `json:"amount"`
+	BaseToken     string  `json:"base"`
+	ComparedToken string  `json:"currency"`
+	Amount        *string `json:"amount"`
 }

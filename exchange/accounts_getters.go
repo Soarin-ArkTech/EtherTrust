@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"math/big"
+	"strconv"
 
 	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
 
@@ -17,13 +18,13 @@ func (player ExchangeAccount) PlayerBalance() string {
 }
 
 // Grab Player Balane in USD
-func (player ExchangeAccount) PlayerBalanceUSD() string {
+func (player ExchangeAccount) PlayerBalanceUSD() float32 {
 	// bal, _ := ether.GetWalletBalance(player.Wallet).Float32()
-	// ethprice, _ := strconv.ParseFloat(*coinbase.Ethereum.Amount, 32)
+	ethprice, _ := strconv.ParseFloat(*coinbase.Ethereum.Amount, 32)
 
-	bal, _ := player.GetBalPow10().Float32()
+	bal, _ := player.GetBalPow10().Float64()
 
-	return fmt.Sprint(bal * *coinbase.Ethereum.Amount)
+	return float32(bal * ethprice)
 }
 
 // // Fetch EVM Wallet Bal
