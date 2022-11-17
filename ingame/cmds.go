@@ -2,11 +2,10 @@ package ingame
 
 import (
 	"ethereal-dreams/coinbase"
-	ether "ethereal-dreams/ethereum"
-	"ethereal-dreams/exchange"
-
 	"fmt"
 
+	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
+	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
 	"github.com/ethereum/go-ethereum/common"
 	"go.minekube.com/brigodier"
 	"go.minekube.com/common/minecraft/color"
