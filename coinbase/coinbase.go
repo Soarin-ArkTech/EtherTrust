@@ -1,8 +1,9 @@
 package coinbase
 
 import (
-	"ethereal-dreams/api"
 	"fmt"
+
+	"github.com/Soarin-ArkTech/ethereal-dreams/api"
 )
 
 func CallEthereum() error {

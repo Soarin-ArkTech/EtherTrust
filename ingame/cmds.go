@@ -1,8 +1,9 @@
 package ingame
 
 import (
-	"ethereal-dreams/coinbase"
 	"fmt"
+
+	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
 
 	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"

@@ -2,10 +2,11 @@ package ingame
 
 import (
 	"context"
-	"ethereal-dreams/coinbase"
-	"ethereal-dreams/exchange"
 	"fmt"
 	"time"
+
+	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
+	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
 
 	"github.com/ethereum/go-ethereum/common"
 	"go.minekube.com/common/minecraft/color"

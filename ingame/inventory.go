@@ -2,10 +2,11 @@ package ingame
 
 import (
 	"encoding/json"
-	"ethereal-dreams/api"
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/Soarin-ArkTech/ethereal-dreams/api"
 
 	"go.minekube.com/gate/pkg/edition/java/proxy"
 )

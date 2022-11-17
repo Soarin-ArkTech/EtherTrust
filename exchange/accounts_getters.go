@@ -2,11 +2,13 @@ package exchange
 
 import (
 	"context"
-	"ethereal-dreams/coinbase"
-	ether "ethereal-dreams/ethereum"
 	"fmt"
 	"math"
 	"math/big"
+
+	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
+
+	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 )
 
 // Grab Player Balance in ETH
