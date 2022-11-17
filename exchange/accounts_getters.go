@@ -28,7 +28,7 @@ func (player ExchangeAccount) PlayerBalanceUSD() float32 {
 }
 
 // // Fetch EVM Wallet Bal
-func (player ExchangeAccount) GetBalWEI() *big.Int {
+func (player ExchangeAccount) GetWEI() *big.Int {
 	// Fetch raw balance
 	weibal, err := ether.EthereumClient.Client.BalanceAt(context.Background(), player.Wallet, nil)
 	if err != nil {

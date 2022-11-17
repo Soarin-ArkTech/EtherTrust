@@ -23,7 +23,7 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		}
 
 		// Treasury Exchange Balance
-		treasuryETH, _ := treasury.GetBalPow10().Float32()
+		treasuryETH, _ := TreasuryWrappedETH.GetBalPow10().Float32()
 
 		text := &Text{Extra: []Component{
 			&Text{

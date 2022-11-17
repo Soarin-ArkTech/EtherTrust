@@ -1,8 +1,13 @@
 package etAPI
 
-import "fmt"
+import (
+	"fmt"
+	"math/big"
 
-func (api PolyscanTokenBal) GetBalWEI() {
+	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
+)
+
+func (api PolyscanTokenBal) QueryTokenBal() {
 	cbAPI := APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetContentType("application/json")
@@ -13,14 +18,23 @@ func (api PolyscanTokenBal) GetBalWEI() {
 		fmt.Println("Failed to call out to Coinbase for ETH-USD spot in CallEthereum function. ", err)
 	}
 
-	_, err = ParseResults(coinbaseRes, &WrappedETH)
+	_, err = ParseResults(coinbaseRes, &TreasuryWrappedETH)
 	if err != nil {
 		fmt.Println("Failed to parse the CallEthereum function. ", err)
 	}
 
 }
 
-func (api PolyscanTokenBal) SetToFloat32() float32 {
+// // Fetch WETH Wallet Bal
+func (user PolyscanTokenBal) GetWEI() *big.Int {
+	return big.NewInt(Result)
+}
+
+func (user PolyscanTokenBal) GetBalPow10() *big.Float {
+	return exchange.WeiToNorm(user.Result)
+}
+
+func (user PolyscanTokenBal) SetToFloat32() float32 {
 	return 1.0 // do l8r
 }
 
@@ -30,6 +44,6 @@ type PolyscanTokenBal struct {
 	Result  *string `json:"result"`
 }
 
-var WrappedETH PolyscanTokenBal
+var TreasuryWrappedETH PolyscanTokenBal
 
 const WETHContract = "0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa"
