@@ -1,4 +1,4 @@
-module ethereal-dreams
+module github.com/Soarin-ArkTech/ethereal-dreams
 
 go 1.19
 
