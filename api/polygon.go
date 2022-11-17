@@ -21,7 +21,7 @@ func (api PolyscanTokenBal) GetBalWEI() {
 }
 
 func (api PolyscanTokenBal) SetToFloat32() float32 {
-	return 1.0
+	return 1.0 // do l8r
 }
 
 type PolyscanTokenBal struct {

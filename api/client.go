@@ -99,8 +99,7 @@ func ParseResults(res *http.Response, Results interface{}) ([]byte, error) {
 	return response, err
 }
 
-
-fync GetETHSpot() {
+func GetETHSpot() {
 	polyAPI := APICallBuilder{}
 	polyAPI.SetMethod("GET")
 	polyAPI.SetContentType("application/json")
