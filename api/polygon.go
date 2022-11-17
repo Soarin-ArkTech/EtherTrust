@@ -2,25 +2,25 @@ package etAPI
 
 import "fmt"
 
-func (api PolyscanTokenBal) GetPrice(ticker string) {
+func (api PolyscanTokenBal) GetPrice() {
 	cbAPI := APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetContentType("application/json")
-	cbAPI.SetURL("https://api.coinbase.com/v2/prices/" + ticker + "-USD/spot")
+	cbAPI.SetURL("https://api.coinbase.com/v2/prices/ETH-USD/spot")
 
 	coinbaseRes, err := cbAPI.Build().Call()
 	if err != nil {
 		fmt.Println("Failed to call out to Coinbase for ETH-USD spot in CallEthereum function. ", err)
 	}
 
-	_, err = ParseResults(coinbaseRes, &Ethereum)
+	_, err = ParseResults(coinbaseRes, &WrappedETH)
 	if err != nil {
 		fmt.Println("Failed to parse the CallEthereum function. ", err)
 	}
 
 }
 
-func (api PolyscanTokenBal) GetPrice() {
+func (api PolyscanTokenBal) GetBalWEI() {
 	cbAPI := APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetContentType("application/json")
