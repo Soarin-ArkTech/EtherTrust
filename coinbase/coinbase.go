@@ -19,8 +19,6 @@ func CallEthereum() error {
 
 	defer coinbaseRes.Body.Close()
 
-	fmt.Println("hello")
-
 	_, err = apiclient.ParseResults(coinbaseRes, &Ethereum)
 	if err != nil {
 		fmt.Println("Failed to parse the CallEthereum function. ", err)
