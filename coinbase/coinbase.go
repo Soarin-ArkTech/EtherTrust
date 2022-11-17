@@ -3,11 +3,11 @@ package coinbase
 import (
 	"fmt"
 
-	"github.com/Soarin-ArkTech/ethereal-dreams/api"
+	apiclient "github.com/Soarin-ArkTech/ethereal-dreams/api"
 )
 
 func CallEthereum() error {
-	cbAPI := api.APICallBuilder{}
+	cbAPI := apiclient.APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetURL("https://api.coinbase.com/v2/prices/ETH-USD/spot")
 	cbAPI.SetContentType("application/json")
@@ -18,7 +18,7 @@ func CallEthereum() error {
 
 	defer coinbaseRes.Body.Close()
 
-	_, err = api.ParseResults(coinbaseRes, &Ethereum)
+	_, err = apiclient.ParseResults(coinbaseRes, &Ethereum)
 	if err != nil {
 		fmt.Println("Failed to parse the CallEthereum function. ", err)
 	}

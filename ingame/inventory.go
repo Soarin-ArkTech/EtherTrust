@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/Soarin-ArkTech/ethereal-dreams/api"
+	apiclient "github.com/Soarin-ArkTech/ethereal-dreams/api"
 
 	"go.minekube.com/gate/pkg/edition/java/proxy"
 )
@@ -15,7 +15,7 @@ const Overworld = "/f031752e-def7-4e28-82d2-7795d1a2e11a/"
 
 func GrabInventory(MCplayer proxy.Player) ([]Player, error) {
 	var (
-		spigotAPI          api.APICallBuilder
+		spigotAPI          apiclient.APICallBuilder
 		RequestedInventory []Player
 	)
 
@@ -30,7 +30,7 @@ func GrabInventory(MCplayer proxy.Player) ([]Player, error) {
 
 	defer res.Body.Close()
 
-	_, err = api.ParseResults(res, &RequestedInventory)
+	_, err = apiclient.ParseResults(res, &RequestedInventory)
 	if err != nil {
 		fmt.Println("Failed to parse HTTP Client request. Error: \n", err)
 	}
@@ -40,7 +40,7 @@ func GrabInventory(MCplayer proxy.Player) ([]Player, error) {
 
 func BurnCurrency(MCplayer proxy.Player, amnt int) error {
 	var (
-		spigotAPI api.APICallBuilder
+		spigotAPI apiclient.APICallBuilder
 	)
 
 	spigotAPI.SetURL("http://209.222.97.128:27091/v1/server/exec")
@@ -54,7 +54,7 @@ func BurnCurrency(MCplayer proxy.Player, amnt int) error {
 
 func GiveCurrency(MCplayer proxy.Player, amnt int) error {
 	var (
-		spigotAPI api.APICallBuilder
+		spigotAPI apiclient.APICallBuilder
 	)
 
 	spigotAPI.SetURL("http://209.222.97.128:27091/v1/server/exec")
