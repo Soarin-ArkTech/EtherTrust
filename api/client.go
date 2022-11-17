@@ -1,4 +1,4 @@
-package apiclient
+package etAPI
 
 import (
 	"encoding/json"

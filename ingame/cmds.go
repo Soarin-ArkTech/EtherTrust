@@ -3,8 +3,7 @@ package ingame
 import (
 	"fmt"
 
-	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
-
+	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
 	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
 	"github.com/ethereum/go-ethereum/common"
@@ -72,7 +71,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 		amount := c.Int("amount")
 
 		// Set Price to $0.05 USD
-		usdETH := (float32(amount) * 0.05) / coinbase.Ethereum.CoinbaseToFloat32()
+		usdETH := (float32(amount) * 0.05) / etAPI.Ethereum.SetToFloat32()
 
 		playerInv, err := GrabInventory(player)
 		if err != nil {
@@ -112,7 +111,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {
 					c.Source.SendMessage(&Text{
-						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), usdETH*coinbase.Ethereum.CoinbaseToFloat32()),
+						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), usdETH*etAPI.Ethereum.SetToFloat32()),
 						S:       Style{Color: color.Gold, Italic: True},
 					})
 

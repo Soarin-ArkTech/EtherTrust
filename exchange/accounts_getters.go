@@ -7,7 +7,7 @@ import (
 	"math/big"
 	"strconv"
 
-	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
+	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
 
 	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 )
@@ -20,7 +20,7 @@ func (player ExchangeAccount) PlayerBalance() string {
 // Grab Player Balane in USD
 func (player ExchangeAccount) PlayerBalanceUSD() float32 {
 	// bal, _ := ether.GetWalletBalance(player.Wallet).Float32()
-	ethprice, _ := strconv.ParseFloat(*coinbase.Ethereum.Amount, 32)
+	ethprice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
 	bal, _ := player.GetBalPow10().Float64()
 

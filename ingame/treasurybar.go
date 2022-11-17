@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Soarin-ArkTech/ethereal-dreams/coinbase"
+	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
 	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -31,13 +31,13 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 				S:       Style{Color: color.Gold, Bold: True},
 			},
 			&Text{
-				Content: fmt.Sprintf("$%.2f", treasuryETH*coinbase.Ethereum.CoinbaseToFloat32()),
+				Content: fmt.Sprintf("$%.2f", treasuryETH*etAPI.Ethereum.SetToFloat32()),
 				S:       Style{Color: color.DarkGreen, Bold: True},
 			},
 		}}
 		bar.SetName(text)
 
-		treasuryETHSpot := (float32(treasuryETH * coinbase.Ethereum.CoinbaseToFloat32() * 0.01))
+		treasuryETHSpot := (float32(treasuryETH * etAPI.WrappedETH.SetToFloat32() * 0.01))
 
 		if treasuryETHSpot >= 1 {
 			bar.SetPercent(1)
