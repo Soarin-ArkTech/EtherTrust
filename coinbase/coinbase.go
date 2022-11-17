@@ -10,14 +10,13 @@ import (
 func CallEthereum() error {
 	cbAPI := apiclient.APICallBuilder{}
 	cbAPI.SetMethod("GET")
-	cbAPI.SetURL("https://api.coinbase.com/v2/prices/ETH-USD/spot")
 	cbAPI.SetContentType("application/json")
+	cbAPI.SetURL("https://api.coinbase.com/v2/prices/ETH-USD/spot")
+
 	coinbaseRes, err := cbAPI.Build().Call()
 	if err != nil {
 		fmt.Println("Failed to call out to Coinbase for ETH-USD spot in CallEthereum function. ", err)
 	}
-
-	defer coinbaseRes.Body.Close()
 
 	_, err = apiclient.ParseResults(coinbaseRes, &Ethereum)
 	if err != nil {

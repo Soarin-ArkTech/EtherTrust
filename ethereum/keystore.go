@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 )
 
-// Our Keystore's Password
+// Our Keystore's Password (temporary, need to rewrite this file)
 const secret string = "dapmeup1776"
 
 func CreateKeys() *accounts.Account {
