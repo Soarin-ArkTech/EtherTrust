@@ -25,9 +25,9 @@ func (api PolyscanTokenBal) SetToFloat32() float32 {
 }
 
 type PolyscanTokenBal struct {
-	Status  int    `json:"status"`
-	Message string `json:"message"`
-	Result  *int64 `json:"result"`
+	Status  string  `json:"status"`
+	Message string  `json:"message"`
+	Result  *string `json:"result"`
 }
 
 var WrappedETH PolyscanTokenBal
