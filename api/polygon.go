@@ -13,7 +13,7 @@ func (api PolyscanTokenBal) GetPrice() {
 		fmt.Println("Failed to call out to Coinbase for ETH-USD spot in CallEthereum function. ", err)
 	}
 
-	_, err = ParseResults(coinbaseRes, &WrappedETH)
+	_, err = ParseResults(coinbaseRes, &Ethereum)
 	if err != nil {
 		fmt.Println("Failed to parse the CallEthereum function. ", err)
 	}
