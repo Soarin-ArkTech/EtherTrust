@@ -1,13 +1,15 @@
 package ether
 
 import (
+	"fmt"
+
 	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
 	"github.com/ethereum/go-ethereum/common"
 )
 
 type ITokenTX interface {
 	GetPrice() float32
-	GetAmount() float32
+	GetAmount() uint64
 	GetWallet() common.Address
 }
 
@@ -17,7 +19,7 @@ type Dreams struct {
 
 type DreamExchange struct {
 	Dreams
-	Amount float32
+	Amount uint64
 	Wallet common.Address
 }
 
@@ -25,7 +27,7 @@ func (d Dreams) GetPrice() float32 {
 	return d.Price
 }
 
-func (d DreamExchange) GetAmount() float32 {
+func (d DreamExchange) GetAmount() uint64 {
 	return d.Amount
 }
 func (d DreamExchange) GetWallet() common.Address {
@@ -41,5 +43,6 @@ func (d *DreamExchange) SetWallet(wallet common.Address) {
 }
 
 func (d *DreamExchange) SetAmount(amnt int) {
-	d.Amount = float32(amnt) * d.Price
+	fmt.Printf("Amount: %s\nPrice: %s\n", amnt, d.Price)
+	d.Amount = NormToWei(float32(amnt) * d.Price)
 }
