@@ -22,5 +22,7 @@ func NonceSync() string {
 		SeqNonce = &pendingNonce
 	}
 
+	fmt.Printf("accNonce: %q\n, SeqNonce: %q\n", nonce, *SeqNonce)
+
 	return fmt.Sprintf("delta: %q, ", EthereumClient.GetPendingNonce()-nonce)
 }
