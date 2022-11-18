@@ -35,7 +35,7 @@ func (d DreamExchange) GetWallet() common.Address {
 }
 
 func (d *DreamExchange) SetPrice(price float32) {
-	d.Price = (price / etAPI.Ethereum.CBToFloat32() * float32(d.Amount))
+	d.Price = price / etAPI.Ethereum.CBToFloat32()
 }
 
 func (d *DreamExchange) SetWallet(wallet common.Address) {
