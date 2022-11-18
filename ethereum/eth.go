@@ -96,6 +96,8 @@ func WeiToNorm(weiBal IBalanceReader) *big.Float {
 		fmt.Println("Failed to make big float in WeiToNorm. ", ok)
 	}
 
+	fmt.Println(weiBigFloat)
+
 	return new(big.Float).Quo(weiBigFloat, big.NewFloat(math.Pow10(18)))
 }
 
