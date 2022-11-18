@@ -10,7 +10,7 @@ func (api PolyscanTokenBal) QueryTokenBal() {
 	cbAPI := APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetContentType("application/json")
-	cbAPI.SetURL(PolyscanAPI + "module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0xF5647Be44eA21d00240556A72672bEc75ed78D0A")
+	cbAPI.SetURL(PolyscanAPI + "module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0x16cde118c2acc7810591687156597f3bfb301193")
 
 	coinbaseRes, err := cbAPI.Build().Call()
 	if err != nil {
@@ -30,6 +30,7 @@ func (user PolyscanTokenBal) GetWEI() *big.Int {
 	return big.NewInt(int64(wei))
 }
 
+// Turn
 func BigToFloat32(bal *big.Float) float32 {
 	bal32, _ := bal.Float32()
 	return bal32

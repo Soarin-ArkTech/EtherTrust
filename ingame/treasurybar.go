@@ -22,13 +22,12 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		// 	Wallet: common.HexToAddress("0x16Cde118c2ACc7810591687156597f3BfB301193"),
 		// }
 
-		test := ether.WeiToNorm(etAPI.TreasuryWrappedETH)
-		Amount, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
+		ETHPrice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
 		// Treasury Exchange Balance
-		treasuryETH := etAPI.BigToFloat32(test)
+		treasuryETH := etAPI.BigToFloat32(ether.WeiToNorm(etAPI.TreasuryWrappedETH))
 
-		fmt.Printf("Ether: %v\n Spot: %v\n Treasury: %v\n", test, float32(Amount), treasuryETH)
+		fmt.Printf("Priceo of Ether: %v\n Treasury: %v\n", float32(ETHPrice), treasuryETH)
 
 		text := &Text{Extra: []Component{
 			&Text{
@@ -36,13 +35,13 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 				S:       Style{Color: color.Gold, Bold: True},
 			},
 			&Text{
-				Content: fmt.Sprintf("$%.2f", treasuryETH*float32(Amount)),
+				Content: fmt.Sprintf("$%.2f", treasuryETH*float32(ETHPrice)),
 				S:       Style{Color: color.DarkGreen, Bold: True},
 			},
 		}}
 		bar.SetName(text)
 
-		treasuryETHSpot := (float32(treasuryETH * float32(Amount) * 0.01))
+		treasuryETHSpot := (float32(treasuryETH * float32(ETHPrice) * 0.01))
 
 		if treasuryETHSpot >= 1 {
 			bar.SetPercent(1)
