@@ -25,10 +25,10 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		test := ether.WeiToNorm(etAPI.TreasuryWrappedETH)
 		Amount, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
-		fmt.Printf("Ether: %v\n Spot: %v\n", test, float32(Amount))
-
 		// Treasury Exchange Balance
 		treasuryETH := etAPI.BigToFloat32(test)
+
+		fmt.Printf("Ether: %v\n Spot: %v\n Treasury: %v\n", test, float32(Amount), treasuryETH)
 
 		text := &Text{Extra: []Component{
 			&Text{
