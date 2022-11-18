@@ -16,7 +16,7 @@ func NonceSync() string {
 	nonce := EthereumClient.GetAccountNonce()
 
 	if EthereumClient.GetPendingNonce()-nonce >= 10 {
-		SeqNonce = &nonce
+		*SeqNonce = nonce
 	} else {
 		pendingNonce := EthereumClient.GetPendingNonce()
 		SeqNonce = &pendingNonce
