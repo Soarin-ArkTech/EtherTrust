@@ -10,7 +10,8 @@ import (
 )
 
 // Sends ETH to Destination
-func SendUNI(wallet common.Address, amount uint64) (string, error) {
+// func SendUNI(wallet common.Address, amount uint64) (string, error) {
+func SendERC20(dreamTX ITokenTX) (string, error) {
 	var tx EtherTXBuilder
 	tx.SetRecipient("0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa") // wETH Token Contract
 	tx.SetAmount(0)
@@ -22,8 +23,8 @@ func SendUNI(wallet common.Address, amount uint64) (string, error) {
 	methodID := hash.Sum(nil)[:4]
 	fmt.Println(hexutil.Encode(methodID)) // 0xa9059cbb
 
-	paddedAddress := common.LeftPadBytes(wallet.Bytes(), 32)
-	paddedAmount := common.LeftPadBytes(big.NewInt(int64(amount)).Bytes(), 32)
+	paddedAddress := common.LeftPadBytes(dreamTX.GetWallet().Bytes(), 32)
+	paddedAmount := common.LeftPadBytes(big.NewInt(int64(dreamTX.GetAmount())).Bytes(), 32)
 
 	var data []byte
 	data = append(data, methodID...)

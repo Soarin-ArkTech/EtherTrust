@@ -7,7 +7,6 @@ import (
 	"strconv"
 
 	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
-
 	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 )
 

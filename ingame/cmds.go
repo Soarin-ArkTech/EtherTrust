@@ -66,12 +66,14 @@ func makeExchangeUser() brigodier.LiteralNodeBuilder {
 
 func sellGameCurrency() brigodier.LiteralNodeBuilder {
 	swap := command.Command(func(c *command.Context) error {
+		var dream ether.DreamExchange
+		dream.SetPrice(0.05) // $0.05 ETH
+
 		player := c.Source.(proxy.Player)
 		exchangeUser := exchange.LoadUser(player)
 		amount := c.Int("amount")
-
-		// Set Price to $0.05 USD
-		usdETH := (float32(amount) * 0.05) / etAPI.Ethereum.CBToFloat32()
+		dream.SetAmount(amount)
+		dream.SetWallet(exchangeUser.Wallet)
 
 		playerInv, err := GrabInventory(player)
 		if err != nil {
@@ -101,18 +103,17 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 
 			go func() {
 				// txhash, err := ether.SendETH(exchangeUser.Wallet, ether.NormToWei(usdETH))
-				txhash, err := ether.SendUNI(exchangeUser.Wallet, ether.NormToWei(usdETH))
+				txhash, err := ether.SendERC20(dream)
 				if err != nil {
 					c.Source.SendMessage(&Text{
 						Content: "We were unable to send the ETH to your wallet, returning funds.",
 						S:       Style{Color: color.Red, Bold: True},
 					})
 					GiveCurrency(player, amount)
-					*ether.SeqNonce--
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {
 					c.Source.SendMessage(&Text{
-						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), usdETH*etAPI.Ethereum.CBToFloat32()),
+						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), dream.GetPrice()*etAPI.Ethereum.CBToFloat32()),
 						S:       Style{Color: color.Gold, Italic: True},
 					})
 

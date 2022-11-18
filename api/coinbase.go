@@ -24,7 +24,7 @@ func (CBSpot) GetPrice() {
 }
 
 func (CBSpot) CBToFloat32() float32 {
-	// Convert string into foat64
+	// Convert string into float64
 	eth, err := strconv.ParseFloat(*Ethereum.Amount, 32)
 	if err != nil {
 		fmt.Println("Failed to convert Ethereum output from string to float!")
