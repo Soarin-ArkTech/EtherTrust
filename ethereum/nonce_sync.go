@@ -14,9 +14,10 @@ func IncrementNonce() {
 // Sync Local Nonce Counter with Ethereum Nonce Counter
 func NonceSync() string {
 	nonce := EthereumClient.GetAccountNonce()
+	fmt.Println(nonce)
 
 	if EthereumClient.GetPendingNonce()-nonce >= 10 {
-		*SeqNonce = nonce
+		SeqNonce = &nonce
 	} else {
 		pendingNonce := EthereumClient.GetPendingNonce()
 		SeqNonce = &pendingNonce
