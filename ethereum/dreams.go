@@ -23,7 +23,7 @@ type DreamExchange struct {
 	Wallet common.Address
 }
 
-func (d Dreams) GetPrice() float32 {
+func (d DreamExchange) GetPrice() float32 {
 	return d.Price
 }
 
@@ -34,7 +34,7 @@ func (d DreamExchange) GetWallet() common.Address {
 	return d.Wallet
 }
 
-func (d *Dreams) SetPrice(price float32) {
+func (d *DreamExchange) SetPrice(price float32) {
 	d.Price = price / etAPI.Ethereum.CBToFloat32()
 }
 
@@ -43,6 +43,7 @@ func (d *DreamExchange) SetWallet(wallet common.Address) {
 }
 
 func (d *DreamExchange) SetAmount(amnt int) {
-	fmt.Printf("Amount: %s\nPrice: %s\n", amnt, d.Price)
+
+	fmt.Printf("Amount: %v\nPrice: %f\n", amnt, d.Price)
 	d.Amount = NormToWei(float32(amnt) * d.Price)
 }
