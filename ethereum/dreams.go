@@ -36,7 +36,7 @@ func (d DreamExchange) GetWallet() common.Address {
 }
 
 func (d DreamExchange) GetUSD() float32 {
-	return float32(d.Amount) / etAPI.Ethereum.CBToFloat32()
+	return float32(d.Amount) * etAPI.Ethereum.CBToFloat32()
 }
 
 func (d *DreamExchange) SetPrice(price float32) {
