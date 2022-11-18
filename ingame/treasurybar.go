@@ -3,12 +3,12 @@ package ingame
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
-	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
+	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
 
-	"github.com/ethereum/go-ethereum/common"
 	"go.minekube.com/common/minecraft/color"
 	. "go.minekube.com/common/minecraft/component"
 	"go.minekube.com/gate/pkg/edition/java/bossbar"
@@ -17,13 +17,16 @@ import (
 
 func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 	updateTreasury := func(bar bossbar.BossBar, player proxy.Player) {
-		treasury := exchange.ExchangeAccount{
-			UUID:   "Ethereal-Dreams-Treasury",
-			Wallet: common.HexToAddress("0x16Cde118c2ACc7810591687156597f3BfB301193"),
-		}
+		// treasury := exchange.ExchangeAccount{
+		// 	UUID:   "Ethereal-Dreams-Treasury",
+		// 	Wallet: common.HexToAddress("0x16Cde118c2ACc7810591687156597f3BfB301193"),
+		// }
+
+		test := ether.WeiToNorm(etAPI.TreasuryWrappedETH)
+		Amount, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
 		// Treasury Exchange Balance
-		treasuryETH, _ := TreasuryWrappedETH.GetBalPow10().Float32()
+		treasuryETH := etAPI.BigToFloat32(test)
 
 		text := &Text{Extra: []Component{
 			&Text{
@@ -31,13 +34,13 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 				S:       Style{Color: color.Gold, Bold: True},
 			},
 			&Text{
-				Content: fmt.Sprintf("$%.2f", treasuryETH*etAPI.Ethereum.SetToFloat32()),
+				Content: fmt.Sprintf("$%.2f", treasuryETH*float32(Amount)),
 				S:       Style{Color: color.DarkGreen, Bold: True},
 			},
 		}}
 		bar.SetName(text)
 
-		treasuryETHSpot := (float32(treasuryETH * etAPI.WrappedETH.SetToFloat32() * 0.01))
+		treasuryETHSpot := (float32(treasuryETH * float32(Amount) * 0.01))
 
 		if treasuryETHSpot >= 1 {
 			bar.SetPercent(1)

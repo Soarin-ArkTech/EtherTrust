@@ -3,15 +3,14 @@ package etAPI
 import (
 	"fmt"
 	"math/big"
-
-	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
+	"strconv"
 )
 
 func (api PolyscanTokenBal) QueryTokenBal() {
 	cbAPI := APICallBuilder{}
 	cbAPI.SetMethod("GET")
 	cbAPI.SetContentType("application/json")
-	cbAPI.SetURL("https://api-testnet.polygonscan.com/api?module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0xF5647Be44eA21d00240556A72672bEc75ed78D0A")
+	cbAPI.SetURL(PolyscanAPI + "module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0xF5647Be44eA21d00240556A72672bEc75ed78D0A")
 
 	coinbaseRes, err := cbAPI.Build().Call()
 	if err != nil {
@@ -25,17 +24,14 @@ func (api PolyscanTokenBal) QueryTokenBal() {
 
 }
 
-// // Fetch WETH Wallet Bal
+// Fetch WETH Wallet Bal
 func (user PolyscanTokenBal) GetWEI() *big.Int {
-	return big.NewInt(Result)
+	wei, _ := strconv.Atoi(*user.Result)
+	return big.NewInt(int64(wei))
 }
 
-func (user PolyscanTokenBal) GetBalPow10() *big.Float {
-	return exchange.WeiToNorm(user.Result)
-}
-
-func (user PolyscanTokenBal) SetToFloat32() float32 {
-	return 1.0 // do l8r
+func BigToFloat32(bal *big.Float) float32 {
+	return float32(bal.Acc())
 }
 
 type PolyscanTokenBal struct {
@@ -47,3 +43,4 @@ type PolyscanTokenBal struct {
 var TreasuryWrappedETH PolyscanTokenBal
 
 const WETHContract = "0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa"
+const PolyscanAPI = "https://api-testnet.polygonscan.com/api?"

@@ -3,7 +3,6 @@ package exchange
 import (
 	"context"
 	"fmt"
-	"math"
 	"math/big"
 	"strconv"
 
@@ -39,20 +38,5 @@ func (player ExchangeAccount) GetWEI() *big.Int {
 }
 
 func (player ExchangeAccount) GetBalPow10() *big.Float {
-	return WeiToNorm(player)
-}
-
-// Wei to 10^18 Decimal
-func WeiToNorm(weiBal IBalanceReader) *big.Float {
-	weiBigFloat, ok := new(big.Float).SetString(fmt.Sprint(weiBal.GetBalWEI()))
-	if !ok {
-		fmt.Println("Failed to make big float in WeiToNorm. ", ok)
-	}
-
-	return new(big.Float).Quo(weiBigFloat, big.NewFloat(math.Pow10(18)))
-}
-
-// To Raw Wei
-func NormToWei(ether float32) uint64 {
-	return uint64(ether * float32(math.Pow10(18)))
+	return ether.WeiToNorm(player)
 }

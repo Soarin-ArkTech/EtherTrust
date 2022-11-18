@@ -3,6 +3,8 @@ package ether
 import (
 	"context"
 	"fmt"
+	"math"
+	"math/big"
 	"time"
 
 	"github.com/ethereum/go-ethereum/accounts"
@@ -87,26 +89,20 @@ func (ether *Ethereum) GetPendingNonce() uint64 {
 	return *CheckNonce()
 }
 
-// // Fetch EVM Wallet Bal
-// func GetWalletBalance(wallet common.Address) *big.Float {
-// 	// Fetch raw balance
-// 	weibal, err := EthereumClient.Client.BalanceAt(context.Background(), wallet, nil)
-// 	if err != nil {
-// 		fmt.Println("Failed to fetch balance of your wallet.")
-// 	}
+// Wei to 10^18 Decimal
+func WeiToNorm(weiBal IBalanceReader) *big.Float {
+	weiBigFloat, ok := new(big.Float).SetString(fmt.Sprint(weiBal.GetWEI()))
+	if !ok {
+		fmt.Println("Failed to make big float in WeiToNorm. ", ok)
+	}
 
-// 	return WeiToNorm(weibal)
-// }
+	return new(big.Float).Quo(weiBigFloat, big.NewFloat(math.Pow10(18)))
+}
 
-// func GetTokenBalance(wallet string, contract string) *big.Int {
-// 	// Fetch raw balance
-// 	weibal, err := EthereumClient.Client.CallContract(context.Background(), ethereum.CallMsg{To: (*common.Address)(common.HexToAddress(wallet).Bytes())})
-// 	if err != nil {
-// 		fmt.Println("Failed to fetch balance of your wallet.")
-// 	}
-
-// 	return WeiToNorm(weibal)
-// }
+// To Raw Wei
+func NormToWei(ether float32) uint64 {
+	return uint64(ether * float32(math.Pow10(18)))
+}
 
 var EthereumClient Ethereum
 

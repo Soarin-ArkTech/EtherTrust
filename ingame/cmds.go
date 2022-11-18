@@ -101,7 +101,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 
 			go func() {
 				// txhash, err := ether.SendETH(exchangeUser.Wallet, ether.NormToWei(usdETH))
-				txhash, err := ether.SendUNI(exchangeUser.Wallet, exchange.NormToWei(usdETH))
+				txhash, err := ether.SendUNI(exchangeUser.Wallet, ether.NormToWei(usdETH))
 				if err != nil {
 					c.Source.SendMessage(&Text{
 						Content: "We were unable to send the ETH to your wallet, returning funds.",
