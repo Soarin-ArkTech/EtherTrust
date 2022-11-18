@@ -7,7 +7,7 @@ import (
 
 type ITokenTX interface {
 	GetPrice() float32
-	GetAmount() int
+	GetAmount() float32
 	GetWallet() common.Address
 }
 
@@ -17,7 +17,7 @@ type Dreams struct {
 
 type DreamExchange struct {
 	Dreams
-	Amount int
+	Amount float32
 	Wallet common.Address
 }
 
@@ -25,7 +25,7 @@ func (d Dreams) GetPrice() float32 {
 	return d.Price
 }
 
-func (d DreamExchange) GetAmount() int {
+func (d DreamExchange) GetAmount() float32 {
 	return d.Amount
 }
 func (d DreamExchange) GetWallet() common.Address {
@@ -41,5 +41,5 @@ func (d *DreamExchange) SetWallet(wallet common.Address) {
 }
 
 func (d *DreamExchange) SetAmount(amnt int) {
-	d.Amount = amnt
+	d.Amount = float32(amnt) * d.Price
 }
