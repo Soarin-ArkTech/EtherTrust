@@ -25,6 +25,8 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		test := ether.WeiToNorm(etAPI.TreasuryWrappedETH)
 		Amount, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
+		fmt.Println("Ether: ", test)
+
 		// Treasury Exchange Balance
 		treasuryETH := etAPI.BigToFloat32(test)
 
