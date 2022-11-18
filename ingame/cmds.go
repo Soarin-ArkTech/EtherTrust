@@ -108,6 +108,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 						S:       Style{Color: color.Red, Bold: True},
 					})
 					GiveCurrency(player, amount)
+					*ether.SeqNonce--
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {
 					c.Source.SendMessage(&Text{
