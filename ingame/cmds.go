@@ -113,7 +113,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {
 					c.Source.SendMessage(&Text{
-						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), dream.GetPrice()*etAPI.Ethereum.CBToFloat32()),
+						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), float32(dream.GetAmount())*etAPI.Ethereum.CBToFloat32()),
 						S:       Style{Color: color.Gold, Italic: True},
 					})
 
