@@ -22,6 +22,8 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		// 	Wallet: common.HexToAddress("0x16Cde118c2ACc7810591687156597f3BfB301193"),
 		// }
 
+		etAPI.TreasuryWrappedETH.QueryTokenBal()
+
 		ETHPrice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
 		// Treasury Exchange Balance

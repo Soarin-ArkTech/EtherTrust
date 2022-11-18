@@ -23,7 +23,7 @@ func (CBSpot) GetPrice() {
 
 }
 
-func (CBSpot) SetToFloat32() float32 {
+func (CBSpot) CBToFloat32() float32 {
 	// Convert string into foat64
 	eth, err := strconv.ParseFloat(*Ethereum.Amount, 32)
 	if err != nil {

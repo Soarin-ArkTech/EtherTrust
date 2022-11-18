@@ -23,7 +23,7 @@ func (p *EtherProx) grabBalance() {
 			userAcc := exchange.LoadUser(c.Source.(proxy.Player))
 
 			c.Source.(proxy.Player).SendMessage(&Text{
-				Content: fmt.Sprint("Your exchange account has $", userAcc.PlayerBalanceUSD(), " of ETH in it currently, good for you... Want a fucking reward?"),
+				Content: fmt.Sprint("Your exchange account has $", userAcc.WalletBalanceUSD(), " of ETH in it currently, good for you... Want a fucking reward?"),
 			})
 
 			return nil
@@ -71,7 +71,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 		amount := c.Int("amount")
 
 		// Set Price to $0.05 USD
-		usdETH := (float32(amount) * 0.05) / etAPI.Ethereum.SetToFloat32()
+		usdETH := (float32(amount) * 0.05) / etAPI.Ethereum.CBToFloat32()
 
 		playerInv, err := GrabInventory(player)
 		if err != nil {
@@ -111,7 +111,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {
 					c.Source.SendMessage(&Text{
-						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), usdETH*etAPI.Ethereum.SetToFloat32()),
+						Content: fmt.Sprintf("You have swapped %v Dreams for $%.2f of ETH", c.Int("amount"), usdETH*etAPI.Ethereum.CBToFloat32()),
 						S:       Style{Color: color.Gold, Italic: True},
 					})
 

@@ -12,12 +12,12 @@ import (
 )
 
 // Grab Player Balance in ETH
-func (player ExchangeAccount) PlayerBalance() string {
+func (player ExchangeAccount) WalletBalance() string {
 	return fmt.Sprint(player.GetBalPow10())
 }
 
 // Grab Player Balane in USD
-func (player ExchangeAccount) PlayerBalanceUSD() float32 {
+func (player ExchangeAccount) WalletBalanceUSD() float32 {
 	// bal, _ := ether.GetWalletBalance(player.Wallet).Float32()
 	ethprice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
 
