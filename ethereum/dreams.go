@@ -30,8 +30,13 @@ func (d DreamExchange) GetPrice() float32 {
 func (d DreamExchange) GetAmount() uint64 {
 	return d.Amount
 }
+
 func (d DreamExchange) GetWallet() common.Address {
 	return d.Wallet
+}
+
+func (d DreamExchange) GetUSD() float32 {
+	return float32(d.Amount) / etAPI.Ethereum.CBToFloat32()
 }
 
 func (d *DreamExchange) SetPrice(price float32) {
