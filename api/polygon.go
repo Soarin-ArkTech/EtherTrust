@@ -31,7 +31,8 @@ func (user PolyscanTokenBal) GetWEI() *big.Int {
 }
 
 func BigToFloat32(bal *big.Float) float32 {
-	return float32(bal.Acc())
+	bal32, _ := bal.Float32()
+	return bal32
 }
 
 type PolyscanTokenBal struct {
