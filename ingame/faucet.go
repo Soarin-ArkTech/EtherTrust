@@ -78,11 +78,12 @@ func BigDrip(p *EtherProx) brigodier.LiteralNodeBuilder {
 	})
 
 	return brigodier.Literal("makeitwork").
+		Requires(hasCmdPerm(p, GetFaucetPerm)).
 		Executes(command.Command(func(c *command.Context) error {
 			fmt.Println("Fuckfuwfejwf")
 
 			return nil
 		})).
-		Then(brigodier.Argument("", brigodier.String).
+		Then(brigodier.Argument("feces", brigodier.String).
 			Executes(drip))
 }
