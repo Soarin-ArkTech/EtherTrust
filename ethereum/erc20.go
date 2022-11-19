@@ -24,7 +24,7 @@ func SendERC20(dreamTX ITokenTX) (string, error) {
 	fmt.Println(hexutil.Encode(methodID)) // 0xa9059cbb
 
 	paddedAddress := common.LeftPadBytes(dreamTX.GetWallet().Bytes(), 32)
-	paddedAmount := common.LeftPadBytes(big.NewInt(int64(dreamTX.GetAmount())).Bytes(), 32)
+	paddedAmount := common.LeftPadBytes(big.NewInt(int64(dreamTX.GetWEI())).Bytes(), 32)
 
 	var data []byte
 	data = append(data, methodID...)
