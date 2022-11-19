@@ -86,6 +86,7 @@ func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 		ethertx.SetChain(),
 		ethertx.Data,
 	}
+	IncrementNonce()
 
 	fmt.Println(*SeqNonce)
 

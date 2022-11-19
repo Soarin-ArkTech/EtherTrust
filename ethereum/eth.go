@@ -40,9 +40,9 @@ func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, bool) {
 	err := EthereumClient.Client.SendTransaction(context.Background(), tx)
 	if err != nil {
 		fmt.Printf("Failed to broadcast TX. Error: %q\n", err)
+		*SeqNonce--
 		return nil, false
 	}
-	IncrementNonce()
 
 	return tx, true
 }
