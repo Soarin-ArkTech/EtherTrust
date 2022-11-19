@@ -41,9 +41,8 @@ func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, bool) {
 	if err != nil {
 		fmt.Printf("Failed to broadcast TX. Error: %q\n", err)
 		return nil, false
-	} else {
-		IncrementNonce()
 	}
+	IncrementNonce()
 
 	return tx, true
 }
