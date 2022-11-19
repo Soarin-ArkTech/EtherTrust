@@ -14,7 +14,7 @@ import (
 )
 
 // Create Connection to our RPC
-func (ether *Ethereum) DialRPC() {
+func (ether *EVM) DialRPC() {
 	var err error
 	EthereumClient.Client, err = ethclient.Dial("https://rpc.ankr.com/polygon_mumbai")
 	if err != nil {
@@ -58,7 +58,7 @@ func SignTX(unsignedTX IUnsignedTX) *types.Transaction {
 }
 
 // Get Account's Current Nonce
-func (ether *Ethereum) GetAccountNonce() uint64 {
+func (ether *EVM) GetAccountNonce() uint64 {
 	nonce, err := ether.Client.NonceAt(context.Background(), EthereumClient.PubKey.Address, nil)
 	if err != nil {
 		fmt.Println("Unable to send transaction due to Nonce error! ", err)
@@ -69,7 +69,7 @@ func (ether *Ethereum) GetAccountNonce() uint64 {
 }
 
 // Get Account's Next Nonce and validate the output
-func (ether *Ethereum) GetPendingNonce() uint64 {
+func (ether *EVM) GetPendingNonce() uint64 {
 	CheckNonce := func() *uint64 {
 		pNonce, _ := EthereumClient.Client.PendingNonceAt(context.Background(), EthereumClient.PubKey.Address)
 		return &pNonce
@@ -99,9 +99,9 @@ func NormToWei(ether float32) uint64 {
 	return uint64(ether * float32(math.Pow10(18)))
 }
 
-var EthereumClient Ethereum
+var EthereumClient EVM
 
-type Ethereum struct {
+type EVM struct {
 	PubKey  *accounts.Account
 	PrivKey *keystore.Key
 	Client  *ethclient.Client

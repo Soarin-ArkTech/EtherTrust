@@ -87,6 +87,8 @@ func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 		ethertx.Data,
 	}
 
+	fmt.Println(*SeqNonce)
+
 	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
 		txStruct.GetRecipient(), txStruct.GetAmount(), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.Data)}
 }

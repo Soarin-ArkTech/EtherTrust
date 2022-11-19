@@ -31,7 +31,7 @@ func CreateKeys() *accounts.Account {
 	return &account
 }
 
-func (ether *Ethereum) LoadKeys() error {
+func (ether *EVM) LoadKeys() error {
 	// Open Keystore or Output an Error if it is Missing
 	keyFile, err := os.ReadFile("./keys/keys")
 	if err != nil {
