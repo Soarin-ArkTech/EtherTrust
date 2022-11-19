@@ -102,13 +102,13 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 			}
 
 			go func() {
-				// txhash, err := ether.SendETH(exchangeUser.Wallet, ether.NormToWei(usdETH))
 				txhash, ok := ether.TransferERC20(wETH)
 				if !ok {
 					c.Source.SendMessage(&Text{
 						Content: "We were unable to send the ETH to your wallet, returning funds.",
 						S:       Style{Color: color.Red, Bold: True},
 					})
+
 					GiveCurrency(player, amount)
 					fmt.Println("Unable to send ETH after exchange request, error: ", err)
 				} else {

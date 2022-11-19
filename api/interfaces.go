@@ -4,6 +4,6 @@ type ITokenTicker interface {
 	SetTicker() string
 }
 
-// type IGetWEI interface {
-// 	GetWEI() *big.Int
-// }
+// For Later Coin Garbage
+type IPriceGetter interface {
+}

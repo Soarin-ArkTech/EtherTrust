@@ -21,7 +21,6 @@ func GrabInventory(MCplayer proxy.Player) ([]Player, error) {
 
 	spigotAPI.SetURL("http://209.222.97.128:27091/v1/players/" + MCplayer.ID().String() + Overworld + "inventory")
 	spigotAPI.SetMethod("GET")
-	spigotAPI.SetKey("MH1gP+qb1776")
 
 	res, err := spigotAPI.Build().Call()
 	if err != nil {

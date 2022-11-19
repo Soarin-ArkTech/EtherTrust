@@ -29,8 +29,6 @@ func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
 		// Treasury Exchange Balance
 		treasuryETH := etAPI.BigToFloat32(ether.WeiToNorm(etAPI.TreasuryWrappedETH))
 
-		fmt.Printf("Priceo of Ether: %v\n Treasury: %v\n", float32(ETHPrice), treasuryETH)
-
 		text := &Text{Extra: []Component{
 			&Text{
 				Content: "Ethereal Treasury @ ",
