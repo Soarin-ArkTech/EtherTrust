@@ -10,7 +10,7 @@ import (
 
 type ITokenTX interface {
 	GetPrice() float32
-	GetAmount() uint64
+	GetAmount() float32
 	GetWallet() common.Address
 }
 
@@ -20,7 +20,7 @@ type Dreams struct {
 
 type DreamExchange struct {
 	Dreams
-	Amount uint64
+	Amount float32
 	Wallet common.Address
 	ether  *big.Int
 }
@@ -29,7 +29,7 @@ func (d DreamExchange) GetPrice() float32 {
 	return d.Price
 }
 
-func (d DreamExchange) GetAmount() uint64 {
+func (d DreamExchange) GetAmount() float32 {
 	return d.Amount
 }
 
@@ -44,7 +44,7 @@ func (d DreamExchange) GetWallet() common.Address {
 func (d DreamExchange) GetUSD() float32 {
 	// test,_ := WeiToNorm(d).Float32()
 	fmt.Println("Amoiwjnt", float32(d.Amount)*etAPI.Ethereum.CBToFloat32())
-	return float32(d.Amount) * etAPI.Ethereum.CBToFloat32()
+	return d.Amount * etAPI.Ethereum.CBToFloat32()
 }
 
 func (d *DreamExchange) SetPrice(price float32) {
@@ -58,5 +58,5 @@ func (d *DreamExchange) SetWallet(wallet common.Address) {
 func (d *DreamExchange) SetAmount(amnt int) {
 
 	fmt.Printf("Amount: %v\nPrice: %f\n", amnt, d.Price)
-	d.Amount = NormToWei(float32(amnt) * d.Price)
+	d.Amount = float32(amnt) * d.Price
 }
