@@ -71,16 +71,14 @@ const GetFaucetPerm = "ethertrust.command.getdrip"
 // 		Then(brigodier.Argument("amount", brigodier.Int).Executes(drip))
 // }
 
-func newGlistCmd(proxy *EtherProx) brigodier.LiteralNodeBuilder {
-	const glistServerArg = "server"
-
+func BigDrip(p *EtherProx) brigodier.LiteralNodeBuilder {
 	drip := command.Command(func(c *command.Context) error {
 		fmt.Println("Hi mom")
 		return nil
 	})
 
 	return brigodier.Literal("anal").
-		Requires(hasCmdPerm(proxy, GetFaucetPerm)).
+		Requires(hasCmdPerm(p, GetFaucetPerm)).
 		Executes(command.Command(func(c *command.Context) error {
 			fmt.Println("Fuckfuwfejwf")
 			return nil

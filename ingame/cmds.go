@@ -34,6 +34,7 @@ func (p *EtherProx) EtherTrust() {
 
 	p.Command().Register(makeExchangeUser())
 	p.Command().Register(sellGameCurrency())
+	p.Command().Register(BigDrip(p))
 	p.grabBalance()
 }
 
@@ -131,7 +132,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 
 func hasCmdPerm(ethertrust *EtherProx, perm string) brigodier.RequireFn {
 	return command.Requires(func(c *command.RequiresContext) bool {
-		return !ethertrust.Proxy.Config().RequireBuiltinCommandPermissions || c.Source.HasPermission(perm)
+		return !ethertrust.Config().RequireBuiltinCommandPermissions || c.Source.HasPermission(perm)
 	})
 }
 
