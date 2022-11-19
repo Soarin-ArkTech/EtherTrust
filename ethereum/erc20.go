@@ -9,31 +9,25 @@ import (
 )
 
 type Token struct {
-	Price    float32
-	Contract string
+	Price    float32 // Exchange Rate for 1 Ingame Dream
+	Contract string  // Specify Token Contract
 }
 
 type TokenExchange struct {
 	Token
-	Amount float32
+	Amount float32 // Amount in 10^18 decimal
 	Wallet common.Address
 }
 
 // Sends ERC20 to Destination
 func TransferERC20(req ITokenTX) (string, bool) {
-	var contractData []byte
 	var tx EtherTXBuilder
 	tx.SetRecipient(req.GetContract()) // wETH Token Contract
 	tx.SetAmount(0)
 
 	// Our Data to Send to Smart Contract
 	methodID := GetMethodID("transfer(address,uint256)")
-	paddedAddress := PadAddress(req)
-	paddedAmount := PadAmount(req)
-	contractData = append(contractData, methodID...)
-	contractData = append(contractData, paddedAddress...)
-	contractData = append(contractData, paddedAmount...)
-	tx.SetData(contractData)
+	tx.SetData(ContractCaller(methodID, req))
 
 	// Build & Send TX to Blockchain
 	sentTX, ok := BroadcastTX(tx.BuildTX())
@@ -47,6 +41,19 @@ func GetMethodID(method string) []byte {
 	hash.Write(funcSignature)
 
 	return hash.Sum(nil)[:4]
+}
+
+// Builds & Pads our Data to Attach to Transaction
+func ContractCaller(methodSignature []byte, req ITokenTX) []byte {
+	var contractData []byte
+	pAdd := PadAddress(req)
+	pAmm := PadAmount(req)
+
+	contractData = append(contractData, methodSignature...)
+	contractData = append(contractData, pAdd...)
+	contractData = append(contractData, pAmm...)
+
+	return contractData
 }
 
 func PadAddress(token ITokenTX) []byte {

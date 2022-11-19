@@ -20,8 +20,6 @@ func (ether *Ethereum) DialRPC() {
 	if err != nil {
 		fmt.Println("Could not connect to RPC! Err: ", err)
 	}
-
-	//"https://rpc.ankr.com/eth_goerli"
 }
 
 // Sends MATIC to Destination
