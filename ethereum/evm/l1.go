@@ -22,6 +22,7 @@ func TransferCoin(req ICoinTX) (string, bool) {
 
 // Broadcast to Blockchain
 func BroadcastTX(ethertx IEVMTX) (*types.Transaction, bool) {
+	// Sign our previously created unsigned TX
 	tx := SignTX(ethertx)
 
 	err := EVMClient.Client.SendTransaction(context.Background(), tx)

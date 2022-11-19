@@ -89,7 +89,7 @@ func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 		Data:            ethertx.GetContractData(),
 	}
 	IncrementNonce()
-	fmt.Println("Local Nonce Cache: %v\nBlockchain Pending Nonce: %v\n", *SeqNonce, EVMClient.GetPendingNonce())
+	fmt.Printf("Local Nonce Cache: %v\nBlockchain Pending Nonce: %v\n", *SeqNonce, EVMClient.GetPendingNonce())
 
 	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
 		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.GetContractData())}
