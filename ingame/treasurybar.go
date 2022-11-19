@@ -6,8 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	etAPI "github.com/Soarin-ArkTech/EtherTrust/api"
-	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
+	coinbaseAPI "github.com/Soarin-ArkTech/EtherTrust/api/coinbase"
+	polyAPI "github.com/Soarin-ArkTech/EtherTrust/api/polygon"
+	"github.com/Soarin-ArkTech/EtherTrust/ethereum/evm"
 
 	"go.minekube.com/common/minecraft/color"
 	. "go.minekube.com/common/minecraft/component"
@@ -15,19 +16,19 @@ import (
 	"go.minekube.com/gate/pkg/edition/java/proxy"
 )
 
-func (p *EtherProx) treasuryBar() func(*proxy.LoginEvent) {
+func (p *EtherProx) TreasuryBar() func(*proxy.LoginEvent) {
 	updateTreasury := func(bar bossbar.BossBar, player proxy.Player) {
 		// treasury := exchange.ExchangeAccount{
 		// 	UUID:   "Ethereal-Dreams-Treasury",
 		// 	Wallet: common.HexToAddress("0x16Cde118c2ACc7810591687156597f3BfB301193"),
 		// }
 
-		etAPI.TreasuryWrappedETH.QueryTokenBal()
+		polyAPI.TreasuryWrappedETH.QueryTokenBal()
 
-		ETHPrice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
+		ETHPrice, _ := strconv.ParseFloat(*coinbaseAPI.Ethereum.Amount, 32)
 
 		// Treasury Exchange Balance
-		treasuryETH := etAPI.BigToFloat32(ether.WeiToNorm(etAPI.TreasuryWrappedETH))
+		treasuryETH := polyAPI.BigToFloat32(evm.WeiToNorm(polyAPI.TreasuryWrappedETH))
 
 		text := &Text{Extra: []Component{
 			&Text{

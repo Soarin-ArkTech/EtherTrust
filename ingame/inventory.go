@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	etAPI "github.com/Soarin-ArkTech/EtherTrust/api"
+	etAPI "github.com/Soarin-ArkTech/EtherTrust/api/client"
 
 	"go.minekube.com/gate/pkg/edition/java/proxy"
 )

@@ -1,13 +1,6 @@
 package ingame
 
-import (
-	"fmt"
-
-	// . "go.minekube.com/common/minecraft/component"
-
-	"go.minekube.com/brigodier"
-	"go.minekube.com/gate/pkg/command"
-)
+// . "go.minekube.com/common/minecraft/component"
 
 const GetFaucetPerm = "ethertrust.command.getdrip"
 
@@ -71,19 +64,19 @@ const GetFaucetPerm = "ethertrust.command.getdrip"
 // 		Then(brigodier.Argument("amount", brigodier.Int).Executes(drip))
 // }
 
-func BigDrip(p *EtherProx) brigodier.LiteralNodeBuilder {
-	drip := command.Command(func(c *command.Context) error {
-		fmt.Println("Hi mom")
-		return nil
-	})
+// func BigDrip(p *ether.EtherProx) brigodier.LiteralNodeBuilder {
+// 	drip := command.Command(func(c *command.Context) error {
+// 		fmt.Println("Hi mom")
+// 		return nil
+// 	})
 
-	return brigodier.Literal("makeitwork").
-		Requires(hasCmdPerm(p, GetFaucetPerm)).
-		Executes(command.Command(func(c *command.Context) error {
-			fmt.Println("Fuckfuwfejwf")
+// 	return brigodier.Literal("makeitwork").
+// 		Requires(hasCmdPerm(p, GetFaucetPerm)).
+// 		Executes(command.Command(func(c *command.Context) error {
+// 			fmt.Println("Fuckfuwfejwf")
 
-			return nil
-		})).
-		Then(brigodier.Argument("feces", brigodier.String).
-			Executes(drip))
-}
+// 			return nil
+// 		})).
+// 		Then(brigodier.Argument("feces", brigodier.String).
+// 			Executes(drip))
+// }

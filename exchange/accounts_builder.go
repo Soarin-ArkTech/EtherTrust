@@ -98,7 +98,6 @@ func (user ExchangeAccountBuilder) Build(db []ExchangeAccountBuilder) {
 	} else {
 		addUser := append(db, user)
 		WriteAccount(addUser)
-		GiveFaucetPerm(user)
 	}
 }
 

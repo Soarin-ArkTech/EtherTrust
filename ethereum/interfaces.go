@@ -7,6 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
+// Composed Interfaces
 type EVMGetter interface {
 	ICoinTX
 	INonceGetter
@@ -19,26 +20,18 @@ type IEVMTX interface {
 	EVMGetter
 }
 
-type ITokenTX interface {
-	ICoinTX
-	IContractGetter
-}
-
 type ICoinTX interface {
 	IWEIGetter
 	IWalletGetter
 }
 
+// Segmented Interfaces
 type IWEIGetter interface {
 	GetWEI() uint64
 }
 
 type IWalletGetter interface {
 	GetWallet() common.Address
-}
-
-type IContractGetter interface {
-	GetContract() string
 }
 
 type INonceGetter interface {
