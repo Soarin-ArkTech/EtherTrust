@@ -2,6 +2,7 @@ package ether
 
 import (
 	"fmt"
+	"math/big"
 
 	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
 	"github.com/ethereum/go-ethereum/common"
@@ -21,6 +22,7 @@ type DreamExchange struct {
 	Dreams
 	Amount uint64
 	Wallet common.Address
+	ether  *big.Int
 }
 
 func (d DreamExchange) GetPrice() float32 {
@@ -31,11 +33,17 @@ func (d DreamExchange) GetAmount() uint64 {
 	return d.Amount
 }
 
+func (d DreamExchange) GetWEI() *big.Int {
+
+}
+
 func (d DreamExchange) GetWallet() common.Address {
 	return d.Wallet
 }
 
 func (d DreamExchange) GetUSD() float32 {
+	// test,_ := WeiToNorm(d).Float32()
+	fmt.Println("Amoiwjnt", float32(d.Amount)*etAPI.Ethereum.CBToFloat32())
 	return float32(d.Amount) * etAPI.Ethereum.CBToFloat32()
 }
 
