@@ -46,8 +46,8 @@ func SignTX(unsignedTX ether.IEVMTX) *types.Transaction {
 }
 
 // Get Account's Current Nonce
-func (ether *EVM) GetAccountNonce() uint64 {
-	nonce, err := ether.Client.NonceAt(context.Background(), EVMClient.PubKey.Address, nil)
+func (evm *EVM) GetAccountNonce() uint64 {
+	nonce, err := evm.Client.NonceAt(context.Background(), evm.GetPubKeyAddress() nil)
 	if err != nil {
 		fmt.Println("Unable to send transaction due to Nonce error! ", err)
 	}
@@ -57,9 +57,9 @@ func (ether *EVM) GetAccountNonce() uint64 {
 }
 
 // Get Account's Next Nonce and validate the output
-func (ether *EVM) GetPendingNonce() uint64 {
+func (evm *EVM) GetPendingNonce() uint64 {
 	CheckNonce := func() *uint64 {
-		pNonce, _ := EVMClient.Client.PendingNonceAt(context.Background(), EVMClient.PubKey.Address)
+		pNonce, _ := EVMClient.Client.PendingNonceAt(context.Background(), evm.GetPubKeyAddress())
 		return &pNonce
 	}
 

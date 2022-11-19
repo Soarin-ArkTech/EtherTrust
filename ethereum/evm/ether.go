@@ -8,6 +8,7 @@ import (
 	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
@@ -30,8 +31,16 @@ func (e EVM) GetPubKey() *accounts.Account {
 	return e.PubKey
 }
 
+func (e EVM) GetPubKeyAddress() common.Address {
+	return e.PubKey.Address
+}
+
 func (e EVM) GetPrivKey() *keystore.Key {
 	return e.PrivKey
+}
+
+func (e EVM) GetPrivKeyAddress() common.Address {
+	return e.PubKey.Address
 }
 
 func (e EVM) GetEVMClient() *ethclient.Client {

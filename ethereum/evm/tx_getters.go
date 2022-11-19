@@ -31,6 +31,10 @@ func (ether EtherTX) GetChainID() *big.Int {
 	return ether.ChainID
 }
 
+func (eth EtherTX) GetContractData() []byte {
+	return eth.Data
+}
+
 func (ether RawEtherTX) GetRawTX() *types.Transaction {
 	return ether.UnsignedTX
 }

@@ -84,12 +84,12 @@ func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 		GasPrice:        ethertx.SetGasPrice(),
 		GasLimit:        ethertx.SetGasLimit(),
 		ChainID:         ethertx.SetChain(),
-		Data:            ethertx.Data,
+		Data:            ethertx.GetContractData(),
 	}
 	IncrementNonce()
 
 	fmt.Println(*SeqNonce)
 
 	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
-		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.Data)}
+		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.GetContractData())}
 }
