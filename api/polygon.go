@@ -7,21 +7,18 @@ import (
 )
 
 func (api PolyscanTokenBal) QueryTokenBal() {
-	cbAPI := APICallBuilder{}
-	cbAPI.SetMethod("GET")
-	cbAPI.SetContentType("application/json")
-	cbAPI.SetURL(PolyscanAPI + "module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0x16cde118c2acc7810591687156597f3bfb301193")
+	polyAPI := APICallBuilder{}
+	polyAPI.SetMethod("GET")
+	polyAPI.SetContentType("application/json")
+	polyAPI.SetURL(PolyscanAPI + "module=account&action=tokenbalance&contractaddress=" + WETHContract + "&address=0x16cde118c2acc7810591687156597f3bfb301193")
 
-	coinbaseRes, err := cbAPI.Build().Call()
+	coinbaseRes, err := polyAPI.Build().Call()
 	if err != nil {
 		fmt.Println("Failed to call out to Coinbase for ETH-USD spot in CallEthereum function. ", err)
 	}
 
-	_, err = ParseResults(coinbaseRes, &TreasuryWrappedETH)
-	if err != nil {
-		fmt.Println("Failed to parse the CallEthereum function. ", err)
-	}
-
+	// Update Treasury WETH
+	ParseResults(coinbaseRes, &TreasuryWrappedETH)
 }
 
 // Fetch WETH Wallet Bal

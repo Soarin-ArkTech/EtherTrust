@@ -88,13 +88,17 @@ func (call APICall) Call() (*http.Response, error) {
 	return res, err
 }
 
-func ParseResults(res *http.Response, Results interface{}) ([]byte, error) {
+func ParseResults(res *http.Response, Results interface{}) []byte {
 	response, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println("Unable to parse API results. Error:\n", err)
-		return nil, err
+		fmt.Println("Unable to read API response. Error:\n", err)
+		return nil
 	}
-	err = json.Unmarshal(response, &Results)
 
-	return response, err
+	err = json.Unmarshal(response, &Results)
+	if err != nil {
+		fmt.Println("Unable to parse API results. Error:\n", err)
+		return nil
+	}
+	return response
 }
