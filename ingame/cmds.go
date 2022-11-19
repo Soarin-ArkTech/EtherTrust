@@ -129,6 +129,12 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 		Then(brigodier.Argument("amount", brigodier.Int).Executes(swap))
 }
 
+func hasCmdPerm(ethertrust *EtherProx, perm string) brigodier.RequireFn {
+	return command.Requires(func(c *command.RequiresContext) bool {
+		return !ethertrust.Proxy.Config().RequireBuiltinCommandPermissions || c.Source.HasPermission(perm)
+	})
+}
+
 type EtherProx struct {
 	*proxy.Proxy
 	legacyCodec *legacy.Legacy

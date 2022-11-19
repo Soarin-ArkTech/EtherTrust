@@ -17,15 +17,13 @@ func (player ExchangeAccount) WalletBalance() string {
 
 // Grab Player Balane in USD
 func (player ExchangeAccount) WalletBalanceUSD() float32 {
-	// bal, _ := ether.GetWalletBalance(player.Wallet).Float32()
 	ethprice, _ := strconv.ParseFloat(*etAPI.Ethereum.Amount, 32)
-
 	bal, _ := player.GetBalPow10().Float64()
 
 	return float32(bal * ethprice)
 }
 
-// // Fetch EVM Wallet Bal
+// Fetch EVM Wallet Bal
 func (player ExchangeAccount) GetWEI() uint64 {
 	// Fetch raw balance
 	weibal, err := ether.EthereumClient.Client.BalanceAt(context.Background(), player.Wallet, nil)

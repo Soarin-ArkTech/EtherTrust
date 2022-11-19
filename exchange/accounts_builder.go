@@ -75,6 +75,7 @@ func CheckAccountsDB(db []ExchangeAccountBuilder, userMap map[string]string) (in
 			return k, true
 		}
 	}
+
 	return 0, false
 }
 
@@ -97,6 +98,7 @@ func (user ExchangeAccountBuilder) Build(db []ExchangeAccountBuilder) {
 	} else {
 		addUser := append(db, user)
 		WriteAccount(addUser)
+		GiveFaucetPerm(user.UUID)
 	}
 }
 
