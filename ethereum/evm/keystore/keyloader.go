@@ -8,7 +8,11 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 )
 
-// Our Keystore's Password (temporary, need to rewrite this file)
+//////////////////////////////////////////////////////
+///(temporary, need to rewrite this entire package)///
+//////////////////////////////////////////////////////
+
+// Our Keystore's Password (fake obv)
 const secret string = "dapmeup1776"
 
 func LoadKeys() error {

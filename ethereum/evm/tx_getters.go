@@ -15,8 +15,12 @@ func (ether EtherTX) GetNonce() uint64 {
 	return ether.Nonce
 }
 
+// func (ether *EtherTXBuilder) GetAmount() uint64 {
+// 	ether.Amount = big.NewInt(int64(amnt))
+// }
+
 func (ether EtherTX) GetWEI() uint64 {
-	return ether.Amount.Uint64()
+	return ether.Amount
 }
 
 func (ether EtherTX) GetGasPrice() *big.Int {
@@ -37,4 +41,8 @@ func (eth EtherTX) GetContractData() []byte {
 
 func (ether RawEtherTX) GetRawTX() *types.Transaction {
 	return ether.UnsignedTX
+}
+
+func (ether RawEtherTX) GetPrivKeyAddress() common.Address {
+	return EVMClient.GetPrivKeyAddress()
 }

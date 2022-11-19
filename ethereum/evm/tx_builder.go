@@ -13,7 +13,7 @@ import (
 type EtherTX struct {
 	RecipientWallet common.Address
 	Nonce           uint64
-	Amount          *big.Int
+	Amount          uint64
 	GasPrice        *big.Int
 	GasLimit        uint64
 	ChainID         *big.Int
@@ -38,7 +38,8 @@ func (ether *EtherTXBuilder) SetNonce(nonce uint64) {
 }
 
 func (ether *EtherTXBuilder) SetAmount(amnt uint64) {
-	ether.Amount = big.NewInt(int64(amnt))
+	// ether.Amount = big.NewInt(int64(amnt))
+	ether.Amount = amnt
 }
 
 func (eth *EtherTXBuilder) SetGasPrice() *big.Int {
@@ -76,19 +77,19 @@ func (eth *EtherTXBuilder) SetData(data []byte) {
 	eth.Data = data
 }
 
+// Build our Unsigned Transaction
 func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 	txStruct := EtherTX{
-		RecipientWallet: ethertx.RecipientWallet,
+		RecipientWallet: ethertx.GetWallet(),
 		Nonce:           *SeqNonce,
-		Amount:          ethertx.Amount,
+		Amount:          ethertx.GetWEI(),
 		GasPrice:        ethertx.SetGasPrice(),
 		GasLimit:        ethertx.SetGasLimit(),
 		ChainID:         ethertx.SetChain(),
 		Data:            ethertx.GetContractData(),
 	}
 	IncrementNonce()
-
-	fmt.Println(*SeqNonce)
+	fmt.Println("Local Nonce Cache: %v\nBlockchain Pending Nonce: %v\n", *SeqNonce, EVMClient.GetPendingNonce())
 
 	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
 		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.GetContractData())}

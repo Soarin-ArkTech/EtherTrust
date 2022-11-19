@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math/big"
 
-	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
 	"github.com/Soarin-ArkTech/EtherTrust/ethereum/evm"
 	"github.com/ethereum/go-ethereum/common"
 	"golang.org/x/crypto/sha3"
@@ -58,10 +57,10 @@ func ContractCaller(methodSignature []byte, req ITokenTX) []byte {
 	return contractData
 }
 
-func PadAddress(token ether.IWalletGetter) []byte {
+func PadAddress(token evm.IWalletGetter) []byte {
 	return common.LeftPadBytes(token.GetWallet().Bytes(), 32)
 }
 
-func PadAmount(token ether.IWEIGetter) []byte {
+func PadAmount(token evm.IWEIGetter) []byte {
 	return common.LeftPadBytes(big.NewInt(int64(token.GetWEI())).Bytes(), 32)
 }

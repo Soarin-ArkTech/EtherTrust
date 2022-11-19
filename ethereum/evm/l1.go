@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
 // Sends MATIC to Destination
-func TransferCoin(req ether.ICoinTX) (string, bool) {
+func TransferCoin(req ICoinTX) (string, bool) {
 	var tx EtherTXBuilder
 	tx.SetWallet(req.GetWallet().Hex())
 	tx.SetAmount(req.GetWEI())
@@ -22,7 +21,7 @@ func TransferCoin(req ether.ICoinTX) (string, bool) {
 }
 
 // Broadcast to Blockchain
-func BroadcastTX(ethertx ether.IEVMTX) (*types.Transaction, bool) {
+func BroadcastTX(ethertx IEVMTX) (*types.Transaction, bool) {
 	tx := SignTX(ethertx)
 
 	err := EVMClient.Client.SendTransaction(context.Background(), tx)
@@ -36,8 +35,8 @@ func BroadcastTX(ethertx ether.IEVMTX) (*types.Transaction, bool) {
 }
 
 // Sign an Unsigned Transaction
-func SignTX(unsignedTX ether.IEVMTX) *types.Transaction {
-	tx, err := types.SignTx(unsignedTX.GetRawTX(), types.NewEIP155Signer(unsignedTX.GetChainID()), EVMClient.PrivKey.PrivateKey)
+func SignTX(unsignedTX IEVMTX) *types.Transaction {
+	tx, err := types.SignTx(unsignedTX.GetRawTX(), types.NewEIP155Signer(unsignedTX.GetChainID()), EVMClient.GetPrivKey())
 	if err != nil {
 		fmt.Printf("Failed to sign the transaction with the exchange private key. Error: %q\n", err)
 	}
@@ -47,7 +46,7 @@ func SignTX(unsignedTX ether.IEVMTX) *types.Transaction {
 
 // Get Account's Current Nonce
 func (evm *EVM) GetAccountNonce() uint64 {
-	nonce, err := evm.Client.NonceAt(context.Background(), evm.GetPubKeyAddress() nil)
+	nonce, err := evm.Client.NonceAt(context.Background(), evm.GetPubKeyAddress(), nil)
 	if err != nil {
 		fmt.Println("Unable to send transaction due to Nonce error! ", err)
 	}

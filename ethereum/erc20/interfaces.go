@@ -1,12 +1,12 @@
 package erc20
 
-import ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
+import "github.com/Soarin-ArkTech/EtherTrust/ethereum/evm"
 
 type IContractGetter interface {
 	GetContract() string
 }
 
 type ITokenTX interface {
-	ether.ICoinTX
+	evm.ICoinTX
 	IContractGetter
 }
