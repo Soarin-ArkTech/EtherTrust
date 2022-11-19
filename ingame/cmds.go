@@ -3,8 +3,8 @@ package ingame
 import (
 	"fmt"
 
-	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
-	"github.com/Soarin-ArkTech/ethereal-dreams/exchange"
+	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
+	"github.com/Soarin-ArkTech/EtherTrust/exchange"
 	"github.com/ethereum/go-ethereum/common"
 	"go.minekube.com/brigodier"
 	"go.minekube.com/common/minecraft/color"

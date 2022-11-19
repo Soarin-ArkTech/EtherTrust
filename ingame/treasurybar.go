@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
-	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
+	etAPI "github.com/Soarin-ArkTech/EtherTrust/api"
+	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
 
 	"go.minekube.com/common/minecraft/color"
 	. "go.minekube.com/common/minecraft/component"

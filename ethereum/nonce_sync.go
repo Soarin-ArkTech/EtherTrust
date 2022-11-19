@@ -11,6 +11,11 @@ func IncrementNonce() {
 	*SeqNonce++
 }
 
+// Decrement Local Counter
+func DecrementNonce() {
+	*SeqNonce--
+}
+
 // Sync Local Nonce Counter with Ethereum Nonce Counter
 func NonceSync() string {
 	nonce := EthereumClient.GetAccountNonce()

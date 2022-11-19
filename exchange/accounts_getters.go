@@ -6,8 +6,8 @@ import (
 	"math/big"
 	"strconv"
 
-	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
-	ether "github.com/Soarin-ArkTech/ethereal-dreams/ethereum"
+	etAPI "github.com/Soarin-ArkTech/EtherTrust/api"
+	ether "github.com/Soarin-ArkTech/EtherTrust/ethereum"
 )
 
 // Grab Player Balance in ETH

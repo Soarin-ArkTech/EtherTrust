@@ -1,4 +1,4 @@
-module github.com/Soarin-ArkTech/ethereal-dreams
+module github.com/Soarin-ArkTech/EtherTrust
 
 go 1.19
 

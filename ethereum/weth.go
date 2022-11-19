@@ -1,7 +1,7 @@
 package ether
 
 import (
-	etAPI "github.com/Soarin-ArkTech/ethereal-dreams/api"
+	etAPI "github.com/Soarin-ArkTech/EtherTrust/api"
 	"github.com/ethereum/go-ethereum/common"
 )
 
