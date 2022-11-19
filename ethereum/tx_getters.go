@@ -7,7 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
-func (ether EtherTX) GetRecipient() common.Address {
+func (ether EtherTX) GetWallet() common.Address {
 	return ether.RecipientWallet
 }
 
@@ -15,8 +15,8 @@ func (ether EtherTX) GetNonce() uint64 {
 	return ether.Nonce
 }
 
-func (ether EtherTX) GetAmount() *big.Int {
-	return ether.Amount
+func (ether EtherTX) GetWEI() uint64 {
+	return ether.Amount.Uint64()
 }
 
 func (ether EtherTX) GetGasPrice() *big.Int {

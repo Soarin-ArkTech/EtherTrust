@@ -22,7 +22,7 @@ type TokenExchange struct {
 // Sends ERC20 to Destination
 func TransferERC20(req ITokenTX) (string, bool) {
 	var tx EtherTXBuilder
-	tx.SetRecipient(req.GetContract()) // wETH Token Contract
+	tx.SetWallet(req.GetContract()) // wETH Token Contract
 	tx.SetAmount(0)
 
 	// Our Data to Send to Smart Contract
@@ -46,20 +46,20 @@ func GetMethodID(method string) []byte {
 // Builds & Pads our Data to Attach to Transaction
 func ContractCaller(methodSignature []byte, req ITokenTX) []byte {
 	var contractData []byte
-	pAdd := PadAddress(req)
-	pAmm := PadAmount(req)
+	recipient := PadAddress(req)
+	amount := PadAmount(req)
 
 	contractData = append(contractData, methodSignature...)
-	contractData = append(contractData, pAdd...)
-	contractData = append(contractData, pAmm...)
+	contractData = append(contractData, recipient...)
+	contractData = append(contractData, amount...)
 
 	return contractData
 }
 
-func PadAddress(token ITokenTX) []byte {
+func PadAddress(token IWalletGetter) []byte {
 	return common.LeftPadBytes(token.GetWallet().Bytes(), 32)
 }
 
-func PadAmount(token ITokenTX) []byte {
+func PadAmount(token IWEIGetter) []byte {
 	return common.LeftPadBytes(big.NewInt(int64(token.GetWEI())).Bytes(), 32)
 }

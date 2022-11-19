@@ -29,7 +29,7 @@ type RawEtherTX struct {
 	UnsignedTX *types.Transaction
 }
 
-func (ether *EtherTXBuilder) SetRecipient(wallet string) {
+func (ether *EtherTXBuilder) SetWallet(wallet string) {
 	ether.RecipientWallet = common.HexToAddress(wallet)
 }
 
@@ -78,18 +78,18 @@ func (eth *EtherTXBuilder) SetData(data []byte) {
 
 func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
 	txStruct := EtherTX{
-		ethertx.RecipientWallet,
-		*SeqNonce,
-		ethertx.Amount,
-		ethertx.SetGasPrice(),
-		ethertx.SetGasLimit(),
-		ethertx.SetChain(),
-		ethertx.Data,
+		RecipientWallet: ethertx.RecipientWallet,
+		Nonce:           *SeqNonce,
+		Amount:          ethertx.Amount,
+		GasPrice:        ethertx.SetGasPrice(),
+		GasLimit:        ethertx.SetGasLimit(),
+		ChainID:         ethertx.SetChain(),
+		Data:            ethertx.Data,
 	}
 	IncrementNonce()
 
 	fmt.Println(*SeqNonce)
 
 	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
-		txStruct.GetRecipient(), txStruct.GetAmount(), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.Data)}
+		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.Data)}
 }

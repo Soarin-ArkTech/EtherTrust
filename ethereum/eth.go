@@ -25,7 +25,7 @@ func (ether *EVM) DialRPC() {
 // Sends MATIC to Destination
 func TransferCoin(req ICoinTX) (string, bool) {
 	var tx EtherTXBuilder
-	tx.SetRecipient(req.GetWallet().Hex())
+	tx.SetWallet(req.GetWallet().Hex())
 	tx.SetAmount(req.GetWEI())
 
 	sentTX, ok := BroadcastTX(tx.BuildTX())
@@ -34,7 +34,7 @@ func TransferCoin(req ICoinTX) (string, bool) {
 }
 
 // Broadcast to Blockchain
-func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, bool) {
+func BroadcastTX(ethertx IEVMTX) (*types.Transaction, bool) {
 	tx := SignTX(ethertx)
 
 	err := EthereumClient.Client.SendTransaction(context.Background(), tx)
@@ -48,7 +48,7 @@ func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, bool) {
 }
 
 // Sign an Unsigned Transaction
-func SignTX(unsignedTX IUnsignedTX) *types.Transaction {
+func SignTX(unsignedTX IEVMTX) *types.Transaction {
 	tx, err := types.SignTx(unsignedTX.GetRawTX(), types.NewEIP155Signer(unsignedTX.GetChainID()), EthereumClient.PrivKey.PrivateKey)
 	if err != nil {
 		fmt.Printf("Failed to sign the transaction with the exchange private key. Error: %q\n", err)
@@ -85,7 +85,7 @@ func (ether *EVM) GetPendingNonce() uint64 {
 }
 
 // Wei to 10^18 Decimal
-func WeiToNorm(weiBal IBalanceGetter) *big.Float {
+func WeiToNorm(weiBal IWEIGetter) *big.Float {
 	weiBigFloat, ok := new(big.Float).SetString(fmt.Sprint(weiBal.GetWEI()))
 	if !ok {
 		fmt.Println("Failed to make big float in WeiToNorm. ", ok)
