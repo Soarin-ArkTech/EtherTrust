@@ -5,47 +5,40 @@ import (
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/common/hexutil"
 	"golang.org/x/crypto/sha3"
 )
 
-// Sends ETH to Destination
-// func SendUNI(wallet common.Address, amount uint64) (string, error) {
-func TransferERC20(req ITokenTXReader) (string, error) {
+type Token struct {
+	Price    float32
+	Contract string
+}
+
+type TokenExchange struct {
+	Token
+	Amount float32
+	Wallet common.Address
+}
+
+// Sends ERC20 to Destination
+func TransferERC20(req ITokenTX) (string, bool) {
+	var contractData []byte
 	var tx EtherTXBuilder
 	tx.SetRecipient(req.GetContract()) // wETH Token Contract
 	tx.SetAmount(0)
 
-	var methodID []byte
-	var paddedAddress []byte
-	var paddedAmount []byte
+	// Our Data to Send to Smart Contract
+	methodID := GetMethodID("transfer(address,uint256)")
+	paddedAddress := PadAddress(req)
+	paddedAmount := PadAmount(req)
+	contractData = append(contractData, methodID...)
+	contractData = append(contractData, paddedAddress...)
+	contractData = append(contractData, paddedAmount...)
+	tx.SetData(contractData)
 
-	methodID = GetMethodID("transfer(address,uint256)")
-	paddedAddress = PadAddress(req)
-	paddedAmount = PadAmount(req)
+	// Build & Send TX to Blockchain
+	sentTX, ok := BroadcastTX(tx.BuildTX())
 
-	fmt.Println(hexutil.Encode(methodID)) // 0xa9059cbb
-
-	var data []byte
-	data = append(data, methodID...)
-	data = append(data, paddedAddress...)
-	data = append(data, paddedAmount...)
-
-	tx.SetData(data)
-
-	fmt.Println("Address is ", hexutil.Encode(paddedAddress))
-	fmt.Println("Amount is ", hexutil.Encode(paddedAmount))
-
-	fmt.Printf("\nTo %q, Gas %v, GasLimit %v\n", tx.RecipientWallet, tx.GasPrice, tx.GasLimit)
-
-	// fmt.Println(tx.RecipientWallet, tx.Amount, tx.Data)
-
-	sentTX, err := BroadcastTX(tx.BuildTX())
-	if err != nil {
-		fmt.Println("Failed to post the Ethereum transaction. Error: ", err)
-	}
-
-	return fmt.Sprintf("tx sent: %s\n", sentTX.Hash().Hex()), err
+	return fmt.Sprintf("tx sent: %s\n", sentTX.Hash().Hex()), ok
 }
 
 func GetMethodID(method string) []byte {
@@ -56,10 +49,10 @@ func GetMethodID(method string) []byte {
 	return hash.Sum(nil)[:4]
 }
 
-func PadAddress(token ITokenTXReader) []byte {
+func PadAddress(token ITokenTX) []byte {
 	return common.LeftPadBytes(token.GetWallet().Bytes(), 32)
 }
 
-func PadAmount(token ITokenTXReader) []byte {
+func PadAmount(token ITokenTX) []byte {
 	return common.LeftPadBytes(big.NewInt(int64(token.GetWEI())).Bytes(), 32)
 }

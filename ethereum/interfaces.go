@@ -1,7 +1,28 @@
 package ether
 
-import "math/big"
+import (
+	"github.com/ethereum/go-ethereum/common"
+)
 
-type IBalanceReader interface {
-	GetWEI() *big.Int
+type ITokenTX interface {
+	IWalletGetter
+	IBalanceGetter
+	IContractGetter
+}
+
+type ICoinTX interface {
+	IBalanceGetter
+	IWalletGetter
+}
+
+type IBalanceGetter interface {
+	GetWEI() uint64
+}
+
+type IWalletGetter interface {
+	GetWallet() common.Address
+}
+
+type IContractGetter interface {
+	GetContract() string
 }

@@ -25,9 +25,9 @@ func (api PolyscanTokenBal) QueryTokenBal() {
 }
 
 // Fetch WETH Wallet Bal
-func (user PolyscanTokenBal) GetWEI() *big.Int {
+func (user PolyscanTokenBal) GetWEI() uint64 {
 	wei, _ := strconv.Atoi(*user.Result)
-	return big.NewInt(int64(wei))
+	return big.NewInt(int64(wei)).Uint64()
 }
 
 // Turn

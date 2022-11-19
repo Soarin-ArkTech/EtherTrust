@@ -24,32 +24,30 @@ func (ether *Ethereum) DialRPC() {
 	//"https://rpc.ankr.com/eth_goerli"
 }
 
-// Sends ETH to Destination
-func SendETH(wallet string, amount uint64) (string, error) {
+// Sends MATIC to Destination
+func TransferCoin(req ICoinTX) (string, bool) {
 	var tx EtherTXBuilder
-	tx.SetRecipient(wallet)
-	tx.SetAmount(amount)
+	tx.SetRecipient(req.GetWallet().Hex())
+	tx.SetAmount(req.GetWEI())
 
-	sentTX, err := BroadcastTX(tx.BuildTX())
-	if err != nil {
-		fmt.Println("Failed to post the Ethereum transaction. Error: ", err)
-	}
+	sentTX, ok := BroadcastTX(tx.BuildTX())
 
-	return fmt.Sprintf("tx sent: %s\n", sentTX.Hash().Hex()), err
+	return fmt.Sprintf("tx sent: %s\n", sentTX.Hash().Hex()), ok
 }
 
 // Broadcast to Blockchain
-func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, error) {
+func BroadcastTX(ethertx IUnsignedTX) (*types.Transaction, bool) {
 	tx := SignTX(ethertx)
 
 	err := EthereumClient.Client.SendTransaction(context.Background(), tx)
 	if err != nil {
 		fmt.Printf("Failed to broadcast TX. Error: %q\n", err)
+		return nil, false
 	} else {
 		IncrementNonce()
 	}
 
-	return tx, err
+	return tx, true
 }
 
 // Sign an Unsigned Transaction
@@ -90,7 +88,7 @@ func (ether *Ethereum) GetPendingNonce() uint64 {
 }
 
 // Wei to 10^18 Decimal
-func WeiToNorm(weiBal IBalanceReader) *big.Float {
+func WeiToNorm(weiBal IBalanceGetter) *big.Float {
 	weiBigFloat, ok := new(big.Float).SetString(fmt.Sprint(weiBal.GetWEI()))
 	if !ok {
 		fmt.Println("Failed to make big float in WeiToNorm. ", ok)
