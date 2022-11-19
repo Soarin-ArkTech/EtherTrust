@@ -73,6 +73,7 @@ func sellGameCurrency() brigodier.LiteralNodeBuilder {
 		amount := c.Int("amount")
 		dream.SetAmount(amount)
 		dream.SetWallet(exchangeUser.Wallet)
+		dream.SetContract("0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa")
 
 		playerInv, err := GrabInventory(player)
 		if err != nil {

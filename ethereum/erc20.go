@@ -11,20 +11,20 @@ import (
 
 // Sends ETH to Destination
 // func SendUNI(wallet common.Address, amount uint64) (string, error) {
-func SendERC20(dreamTX ITokenTX) (string, error) {
+func TransferERC20(req ITokenTXReader) (string, error) {
 	var tx EtherTXBuilder
-	tx.SetRecipient("0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa") // wETH Token Contract
+	tx.SetRecipient(req.GetContract()) // wETH Token Contract
 	tx.SetAmount(0)
 
-	transferFnSignature := []byte("transfer(address,uint256)") // do not include spaces in the string
+	var methodID []byte
+	var paddedAddress []byte
+	var paddedAmount []byte
 
-	hash := sha3.NewLegacyKeccak256()
-	hash.Write(transferFnSignature)
-	methodID := hash.Sum(nil)[:4]
+	methodID = GetMethodID("transfer(address,uint256)")
+	paddedAddress = PadAddress(req)
+	paddedAmount = PadAmount(req)
+
 	fmt.Println(hexutil.Encode(methodID)) // 0xa9059cbb
-
-	paddedAddress := common.LeftPadBytes(dreamTX.GetWallet().Bytes(), 32)
-	paddedAmount := common.LeftPadBytes(big.NewInt(int64(dreamTX.GetWEI())).Bytes(), 32)
 
 	var data []byte
 	data = append(data, methodID...)
@@ -46,4 +46,20 @@ func SendERC20(dreamTX ITokenTX) (string, error) {
 	}
 
 	return fmt.Sprintf("tx sent: %s\n", sentTX.Hash().Hex()), err
+}
+
+func GetMethodID(method string) []byte {
+	funcSignature := []byte(method) // do not include spaces in the string
+	hash := sha3.NewLegacyKeccak256()
+	hash.Write(funcSignature)
+
+	return hash.Sum(nil)[:4]
+}
+
+func PadAddress(token ITokenTXReader) []byte {
+	return common.LeftPadBytes(token.GetWallet().Bytes(), 32)
+}
+
+func PadAmount(token ITokenTXReader) []byte {
+	return common.LeftPadBytes(big.NewInt(int64(token.GetWEI())).Bytes(), 32)
 }
