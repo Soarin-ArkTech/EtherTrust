@@ -15,8 +15,8 @@ type Token struct {
 
 type TokenExchange struct {
 	Token
-	Amount float32 // Amount in 10^18 decimal
-	Wallet common.Address
+	PowAmount float32 // Amount in 10^18 decimal
+	Wallet    common.Address
 }
 
 // Sends ERC20 to Destination

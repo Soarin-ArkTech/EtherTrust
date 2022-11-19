@@ -1,9 +1,9 @@
 package exchange
 
-func GiveFaucetPerm(wallet string) {
+func GiveFaucetPerm(IExchangeUserGrabber) {
 
 }
 
-func (player ExchangeAccount) SendDrip() {
+func SendDrip() {
 
 }

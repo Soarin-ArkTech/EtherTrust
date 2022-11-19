@@ -22,7 +22,7 @@ func (p *EtherProx) grabBalance() {
 			userAcc := exchange.LoadUser(c.Source.(proxy.Player))
 
 			c.Source.(proxy.Player).SendMessage(&Text{
-				Content: fmt.Sprint("Your exchange account has $", userAcc.WalletBalanceUSD(), " of ETH in it currently, good for you... Want a fucking reward?"),
+				Content: fmt.Sprint("Your exchange account has $", userAcc.GetUSD(), " of ETH in it currently, good for you... Want a fucking reward?"),
 			})
 
 			return nil

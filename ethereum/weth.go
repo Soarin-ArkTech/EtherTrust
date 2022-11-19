@@ -11,12 +11,12 @@ func (t WETH) GetPrice() float32 {
 	return t.Price
 }
 
-func (t WETH) GetAmount() float32 {
-	return t.Amount
+func (t WETH) GetPowAmount() float32 {
+	return t.PowAmount
 }
 
 func (t WETH) GetWEI() uint64 {
-	return NormToWei(t.Amount) // WEI Amount to Send
+	return NormToWei(t.PowAmount) // WEI Amount to Send
 }
 
 func (t WETH) GetWallet() common.Address {
@@ -28,7 +28,7 @@ func (t WETH) GetContract() string {
 }
 
 func (t WETH) GetUSD() float32 {
-	return t.Amount * etAPI.Ethereum.CBToFloat32()
+	return t.PowAmount * etAPI.Ethereum.CBToFloat32()
 }
 
 func (t *WETH) SetPrice(price float32) {
@@ -40,7 +40,7 @@ func (t *WETH) SetWallet(wallet common.Address) {
 }
 
 func (t *WETH) SetAmount(amnt int) {
-	t.Amount = float32(amnt) * t.Price
+	t.PowAmount = float32(amnt) * t.Price
 }
 
 func (t *WETH) SetContract(address string) {

@@ -98,7 +98,7 @@ func (user ExchangeAccountBuilder) Build(db []ExchangeAccountBuilder) {
 	} else {
 		addUser := append(db, user)
 		WriteAccount(addUser)
-		GiveFaucetPerm(user.UUID)
+		GiveFaucetPerm(user)
 	}
 }
 
@@ -108,6 +108,7 @@ type ExchangeAccount struct {
 }
 
 type ExchangeAccountBuilder struct {
-	UUID   string         `json:"uuid"`
-	Wallet common.Address `json:"wallet"`
+	UUID       string         `json:"uuid"`
+	Wallet     common.Address `json:"wallet"`
+	EtherTrust *proxy.Proxy
 }
