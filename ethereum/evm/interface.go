@@ -37,7 +37,7 @@ type ICoinTX interface {
 
 // Segmented Interfaces
 type IWEIGetter interface {
-	GetWEI() uint64
+	GetWEI() int64
 }
 
 type IWalletGetter interface {

@@ -16,7 +16,7 @@ func (t WETH) GetPowAmount() float32 {
 	return t.PowAmount
 }
 
-func (t WETH) GetWEI() uint64 {
+func (t WETH) GetWEI() int64 {
 	return evm.NormToWei(t.PowAmount) // WEI Amount to Send
 }
 

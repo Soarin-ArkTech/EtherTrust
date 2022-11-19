@@ -25,14 +25,14 @@ func (player ExchangeAccount) GetUSD() float32 {
 }
 
 // Fetch EVM Wallet Bal
-func (player ExchangeAccount) GetWEI() uint64 {
+func (player ExchangeAccount) GetWEI() int64 {
 	// Fetch raw WEI balance
 	weibal, err := evm.EVMClient.Client.BalanceAt(context.Background(), player.Wallet, nil)
 	if err != nil {
 		fmt.Println("Failed to fetch balance of your wallet.")
 	}
 
-	return weibal.Uint64()
+	return weibal.Int64()
 }
 
 func (player ExchangeAccount) GetWallet() common.Address {

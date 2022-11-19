@@ -19,7 +19,7 @@ func (ether EtherTX) GetNonce() uint64 {
 // 	ether.Amount = big.NewInt(int64(amnt))
 // }
 
-func (ether EtherTX) GetWEI() uint64 {
+func (ether EtherTX) GetWEI() int64 {
 	return ether.Amount
 }
 

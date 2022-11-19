@@ -12,21 +12,25 @@ import (
 
 type EtherTX struct {
 	RecipientWallet common.Address
-	Nonce           uint64
-	Amount          uint64
-	GasPrice        *big.Int
-	GasLimit        uint64
-	ChainID         *big.Int
+	Amount          int64
 	Data            []byte
+	EVMTX
 }
 
-type EtherTXBuilder struct {
-	EtherTX
+type EVMTX struct {
+	Nonce    uint64
+	GasPrice *big.Int
+	GasLimit uint64
+	ChainID  *big.Int
 }
 
 type RawEtherTX struct {
 	EtherTX
 	UnsignedTX *types.Transaction
+}
+
+type EtherTXBuilder struct {
+	EtherTX
 }
 
 func (ether *EtherTXBuilder) SetWallet(wallet string) {
@@ -37,7 +41,7 @@ func (ether *EtherTXBuilder) SetNonce(nonce uint64) {
 	ether.Nonce = nonce
 }
 
-func (ether *EtherTXBuilder) SetAmount(amnt uint64) {
+func (ether *EtherTXBuilder) SetAmount(amnt int64) {
 	// ether.Amount = big.NewInt(int64(amnt))
 	ether.Amount = amnt
 }
@@ -78,19 +82,21 @@ func (eth *EtherTXBuilder) SetData(data []byte) {
 }
 
 // Build our Unsigned Transaction
-func (ethertx EtherTXBuilder) BuildTX() RawEtherTX {
-	txStruct := EtherTX{
-		RecipientWallet: ethertx.GetWallet(),
-		Nonce:           *SeqNonce,
-		Amount:          ethertx.GetWEI(),
-		GasPrice:        ethertx.SetGasPrice(),
-		GasLimit:        ethertx.SetGasLimit(),
-		ChainID:         ethertx.SetChain(),
-		Data:            ethertx.GetContractData(),
+func (newTX EtherTXBuilder) BuildTX() IEVMTX {
+	builtTX := EtherTX{
+		newTX.GetWallet(),
+		newTX.GetWEI(),
+		newTX.GetContractData(),
+		EVMTX{
+			Nonce:    *SeqNonce,
+			GasPrice: newTX.SetGasPrice(),
+			GasLimit: newTX.SetGasLimit(),
+			ChainID:  newTX.SetChain(),
+		},
 	}
 	IncrementNonce()
 	fmt.Printf("Local Nonce Cache: %v\nBlockchain Pending Nonce: %v\n", *SeqNonce, EVMClient.GetPendingNonce())
 
-	return RawEtherTX{txStruct, types.NewTransaction(txStruct.GetNonce(),
-		txStruct.GetWallet(), big.NewInt(int64(txStruct.GetWEI())), txStruct.GetGasLimit(), txStruct.GetGasPrice(), txStruct.GetContractData())}
+	return RawEtherTX{builtTX, types.NewTransaction(builtTX.GetNonce(),
+		builtTX.GetWallet(), big.NewInt(builtTX.GetWEI()), builtTX.GetGasLimit(), builtTX.GetGasPrice(), builtTX.GetContractData())}
 }

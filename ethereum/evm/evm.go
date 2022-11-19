@@ -23,8 +23,8 @@ func WeiToNorm(weiBal IWEIGetter) *big.Float {
 }
 
 // To Raw Wei
-func NormToWei(ether float32) uint64 {
-	return uint64(ether * float32(math.Pow10(18)))
+func NormToWei(ether float32) int64 {
+	return int64(ether * float32(math.Pow10(18)))
 }
 
 func (e EVM) GetPubKey() *accounts.Account {
