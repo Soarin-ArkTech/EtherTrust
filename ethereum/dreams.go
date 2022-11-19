@@ -34,7 +34,7 @@ func (d DreamExchange) GetAmount() uint64 {
 }
 
 func (d DreamExchange) GetWEI() *big.Int {
-
+	return nil
 }
 
 func (d DreamExchange) GetWallet() common.Address {
