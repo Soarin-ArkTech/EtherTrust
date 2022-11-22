@@ -3,7 +3,6 @@ package exchange
 import (
 	"context"
 	"fmt"
-	"strconv"
 
 	coinbaseAPI "github.com/Soarin-ArkTech/EtherTrust/api/coinbase"
 	"github.com/Soarin-ArkTech/EtherTrust/ethereum/evm"
@@ -19,9 +18,7 @@ func (player ExchangeAccount) GetPowAmount() float32 {
 
 // Grab Player Balance in USD
 func (player ExchangeAccount) GetUSD() float32 {
-	ethprice, _ := strconv.ParseFloat(*coinbaseAPI.Ethereum.Amount, 32)
-
-	return float32(player.GetPowAmount() * float32(ethprice))
+	return float32(player.GetPowAmount() * coinbaseAPI.Ethereum.CBToFloat32())
 }
 
 // Fetch EVM Wallet Bal

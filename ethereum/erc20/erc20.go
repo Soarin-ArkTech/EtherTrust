@@ -46,13 +46,17 @@ func GetMethodID(method string) []byte {
 
 // Builds & Pads our Data to Attach to Transaction
 func ContractCaller(methodSignature []byte, req ITokenTX) []byte {
-	var contractData []byte
-	recipient := PadAddress(req)
-	amount := PadAmount(req)
+	var (
+		contractData []byte
+		setRecipient []byte
+		sendAmount   []byte
+	)
 
+	setRecipient = PadAddress(req)
+	sendAmount = PadAmount(req)
 	contractData = append(contractData, methodSignature...)
-	contractData = append(contractData, recipient...)
-	contractData = append(contractData, amount...)
+	contractData = append(contractData, setRecipient...)
+	contractData = append(contractData, sendAmount...)
 
 	return contractData
 }

@@ -33,17 +33,16 @@ type EtherTXBuilder struct {
 	EtherTX
 }
 
-func (ether *EtherTXBuilder) SetWallet(wallet string) {
-	ether.RecipientWallet = common.HexToAddress(wallet)
+func (eth *EtherTXBuilder) SetWallet(wallet string) {
+	eth.RecipientWallet = common.HexToAddress(wallet)
 }
 
-func (ether *EtherTXBuilder) SetNonce(nonce uint64) {
-	ether.Nonce = nonce
+func (eth *EtherTXBuilder) SetNonce(nonce uint64) {
+	eth.Nonce = nonce
 }
 
-func (ether *EtherTXBuilder) SetAmount(amnt int64) {
-	// ether.Amount = big.NewInt(int64(amnt))
-	ether.Amount = amnt
+func (eth *EtherTXBuilder) SetAmount(amnt int64) {
+	eth.Amount = amnt
 }
 
 func (eth *EtherTXBuilder) SetGasPrice() *big.Int {
@@ -95,7 +94,6 @@ func (newTX EtherTXBuilder) BuildTX() IEVMTX {
 		},
 	}
 	IncrementNonce()
-	fmt.Printf("Local Nonce Cache: %v\nBlockchain Pending Nonce: %v\n", *SeqNonce, EVMClient.GetPendingNonce())
 
 	return RawEtherTX{builtTX, types.NewTransaction(builtTX.GetNonce(),
 		builtTX.GetWallet(), big.NewInt(builtTX.GetWEI()), builtTX.GetGasLimit(), builtTX.GetGasPrice(), builtTX.GetContractData())}

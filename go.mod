@@ -4,11 +4,12 @@ go 1.19
 
 require (
 	github.com/ethereum/go-ethereum v1.10.26
-	github.com/robinbraemer/event v0.0.1
 	go.minekube.com/brigodier v0.0.1
 	go.minekube.com/common v0.0.5
 	go.minekube.com/gate v0.21.5
 	golang.org/x/crypto v0.3.0
+	gorm.io/driver/sqlite v1.4.3
+	gorm.io/gorm v1.24.2
 )
 
 require (
@@ -27,12 +28,16 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/mattn/go-sqlite3 v1.14.15 // indirect
 	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 // indirect
 	github.com/pires/go-proxyproto v0.6.2 // indirect
 	github.com/rjeczalik/notify v0.9.1 // indirect
+	github.com/robinbraemer/event v0.0.1 // indirect
 	github.com/sandertv/gophertunnel v1.25.0 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
